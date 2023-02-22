@@ -129,7 +129,7 @@ namespace petoi_robot{
     //% block="Turn all joints simultaneously [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
-	export function excuteSim(parameter: any, block: any) {
+	export function excuteAllSim(parameter: any, block: any) {
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 

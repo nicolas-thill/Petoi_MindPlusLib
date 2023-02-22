@@ -15,13 +15,10 @@
 
 ## URL
 * Project URL : ```https://github.com/JasonWong08/ext-petoi_robot```
-
 * Get a purchase connection: [store](https://www.petoi.com/collections/robots).
 
 ## Summary
-Support different drawings in the screen, including point, line, circle, rectangle, triangle,rounded rectangle and some commands.
-Support English characters and character library chips of DFRobot modules.
-IIC: the redraw rate is more than 30 frames per second when redrawed by ESP series controllers
+Use the user library of Mind+V1.7.3 and above to load this extension to control the Petoi robot to show various skills.
 
 ## Blocks
 

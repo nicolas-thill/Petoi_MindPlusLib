@@ -6,6 +6,11 @@ from SerialCommunication import *
 import struct
 import time
 
+# use to print debug information
+def printH(h,s):
+    print(h,end=" ")
+    print(s)
+
 
 # creat a list
 def creatList(num1, num2):
@@ -37,9 +42,8 @@ def openPort(port):
     t = 3
     print('Time delay after open port: ', str(t))
     time.sleep(t)
-def printH(h,s):
-    print(h,end=" ")
-    print(s)
+
+
 # check if there is a response
 def checkResponse(tk, timeout=0):
     token = tk
@@ -52,11 +56,11 @@ def checkResponse(tk, timeout=0):
     while True:
         
         response = com.Read_Line()
-        printH('a',response)
+        # printH('a',response)
         response=response.decode('ISO-8859-1')
-        printH('b',response)
+        # printH('b',response)
         if response != '':
-            printH('c',response)
+            # printH('c',response)
             response = response[:-2]   # delete '\r\n'
             if response.lower() == token.lower():
                 return [response, allPrints]
