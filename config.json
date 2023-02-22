@@ -1,0 +1,26 @@
+{
+    "name": {
+      "zh-cn": "Petoi技能编辑工具",
+      "en": "Petoi Skill Editor"
+    },
+    "description": {
+      "zh-cn": "通过Python脚本控制机器人展示各种技能。",
+      "en": "Control the robot to show various skills through Python script."
+    },
+    "author": "jason",
+    "email": "jason.wang@petoi.com",
+    "license": "MIT",
+    "isBoard": false,
+    "id": "petoi_robot",
+    "platform": ["win","mac","web","linux"],
+    "version": "0.0.1",
+    "asset": {
+      "python": {
+          "dir": "python/",
+          "main": "main.ts",
+          "dependencies": {
+                    "pyserial":"3.5"
+          }
+        }
+     }
+  }

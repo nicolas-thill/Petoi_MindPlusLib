@@ -1,0 +1,19 @@
+{
+    "petoi.openSerialPort|block": "打开串口[PORT]",
+    "petoi.excuteSkill|block": "执行技能[SKILL]后延时[TIME]秒",
+    "petoi.jointAngle|block": "关节序号[INDEX]旋转角度[ANGLE]",
+	"petoi.joinList|block": "连接[LIST1]和[LIST2]",
+	"petoi.excuteSeq|block": "关节舵机顺序旋转[LIST]后延时[TIME]秒",
+    "petoi.closeSerialPort|block": "关闭串口",
+    
+    "petoi.SKILL.sit|menu": "坐下",
+    "petoi.SKILL.balance|menu": "起立",
+    "petoi.SKILL.pushup|menu": "俯卧撑",
+    "petoi.SKILL.rest|menu": "休息",
+    "petoi.SKILL.hi|menu": "打招呼",
+    "petoi.SKILL.pee|menu": "撒尿",
+    "petoi.SKILL.check around|menu": "左右看",
+    "petoi.SKILL.walk foward|menu": "向前走",
+    "petoi.SKILL.back|menu": "后退",
+    "petoi.SKILL.stretch|menu": "伸懒腰"
+}

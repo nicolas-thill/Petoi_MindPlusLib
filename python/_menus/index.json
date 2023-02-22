@@ -1,0 +1,14 @@
+{
+    "SKILL": {
+        "menu": [["sit", "ksit"], 
+        ["balance", "kbalance"], 
+        ["pushup", "kpu"], 
+        ["rest", "krest"], 
+        ["hi", "khi"],
+        ["pee", "kpee"],
+		["check around", "kck"],
+		["walk foward", "kwkF"],
+		["back", "kbk"],
+        ["stretch", "kstr"]]
+    }
+}
