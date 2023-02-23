@@ -46,7 +46,7 @@ namespace petoi_robot{
 */
 
     //% block="open serial port [PORT]" blockType="command"
-    //% PORT.shadow="string" PORT.defl="COM5"
+    //% PORT.shadow="string" PORT.defl="COM3"
     export function openSerialPort(parameter: any, block: any) {
         let port=parameter.PORT.code;
 /*
