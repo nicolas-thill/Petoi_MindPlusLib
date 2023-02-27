@@ -73,7 +73,7 @@ namespace petoi_robot{
     }  
 	
 	
-	//% block="Joint index [INDEX] roate angle [ANGLE]" blockType="reporter"
+	//% block="Joint index [INDEX] Rotate angle [ANGLE]" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"  INDEX.defl="INDEX.8"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
 	export function jointAngle(parameter: any, block: any) {
@@ -93,6 +93,15 @@ namespace petoi_robot{
 
 		Generator.addCode(`combineList(${l1}, ${l2})`);
 	}
+
+
+    //% block="Joint index and rotate angle list [LIST]" blockType="reporter"
+	//% LIST.shadow="list"  LIST.defl='8, 30, 9, 30, 10, 30, 11, 30'
+	export function jointAngleList(parameter: any, block: any) {
+        var listJointAngle=parameter.LIST.code;
+
+		Generator.addCode(`${listJointAngle}`);
+	}
 	
 	
 	//% block="Turn some joints sequentially [LIST] and delay [TIME] seconds" blockType="command"
@@ -102,6 +111,7 @@ namespace petoi_robot{
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
+        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
         Generator.addCode(`sendLongCmd('M', ${iaList}, ${t})`);
 	}
 	
@@ -112,6 +122,7 @@ namespace petoi_robot{
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
+        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
         Generator.addCode(`sendLongCmd('I', ${iaList}, ${t})`);
 	}
 
@@ -133,6 +144,7 @@ namespace petoi_robot{
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
+        Generator.addCode(`# The length of list is 16. The list format is [angle, angle, angle...]`)
         Generator.addCode(`sendLongCmd('L', ${iaList}, ${t})`);
 	}
 

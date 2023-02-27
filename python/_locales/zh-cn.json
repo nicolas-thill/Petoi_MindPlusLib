@@ -3,6 +3,7 @@
     "petoi_robot.excuteSkill|block": "执行技能[SKILL]后延时[TIME]秒",
     "petoi_robot.jointAngle|block": "关节序号[INDEX]旋转角度[ANGLE]",
     "petoi_robot.joinList|block": "连接[LIST1]和[LIST2]",
+    "petoi_robot.jointAngleList|block": "关节序号及角度列表[LIST]",
     "petoi_robot.excuteSeq|block": "关节舵机顺序旋转[LIST]后延时[TIME]秒",
     "petoi_robot.excuteSim|block": "关节舵机同时旋转[LIST]后延时[TIME]秒",
     "petoi_robot.angleList|block": "所有关节旋转角度列表[ANGLE]",
