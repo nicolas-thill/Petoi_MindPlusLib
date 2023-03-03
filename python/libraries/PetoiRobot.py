@@ -6,10 +6,31 @@ from SerialCommunication import *
 import struct
 import time
 
+
+currentAng = [0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0]
+
+
 # use to print debug information
-def printH(h,s):
-    print(h,end=" ")
-    print(s)
+def printH(head, value):
+    print(head, end=' ')
+    print(value)
+
+
+def getCurAng(index):
+    global currentAng
+    token = 'j'
+    in_str = token + '\n'
+    com.Send_data(encode(in_str))
+    rawData = checkResponse(token)
+    # printH('rawData: ', rawData[1])
+    tempStr = rawData[1].split('\n')
+    angleList = tempStr[1].split(',')
+    currentAng = list(map(lambda x:int(x),angleList[:-1])) #angle value have to be integer
+    # printH('currentAng: ', currentAng)
+    return currentAng[index]
 
 
 # creat a list
@@ -17,6 +38,18 @@ def creatList(num1, num2):
     newList = []
     newList.append(num1)
     newList.append(num2)
+    return newList
+
+
+# rotate angle from relative value to absolute value
+def relative2abs(index, symbol, angle):
+    newList = []
+    curAngle = getCurAng(index)
+    absAngle = curAngle + int(symbol) * angle
+    absAngle = min(125,max(-125,absAngle))
+    # printH('absAngle: ', absAngle)
+    newList.append(index)
+    newList.append(absAngle)
     return newList
 
 
@@ -39,7 +72,7 @@ com = None
 def openPort(port):
     global com
     com = Communication(port,115200,timeout=0.002)
-    t = 3
+    t = 5
     print('Time delay after open port: ', str(t))
     time.sleep(t)
 
@@ -54,7 +87,6 @@ def checkResponse(tk, timeout=0):
     startTime = time.time()
     allPrints = ''
     while True:
-        
         response = com.Read_Line()
         # printH('a',response)
         response=response.decode('ISO-8859-1')
@@ -63,9 +95,11 @@ def checkResponse(tk, timeout=0):
             # printH('c',response)
             response = response[:-2]   # delete '\r\n'
             if response.lower() == token.lower():
+                # printH('response: ', response)
+                # printH('allPrints: ', allPrints)
                 return [response, allPrints]
             else:
-                print(response, flush=True)
+                # print(response, flush=True)
                 allPrints += response + '\n'
         now = time.time()
         if (now - startTime) > threshold:

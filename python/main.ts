@@ -33,6 +33,44 @@ enum INDEX {
     15
 }
 
+enum DIRECTION {
+    //% block="+"
+    "1",
+    //% block="-"
+    "-1",
+}
+
+enum NOTE {
+    //% block="C1"
+    10,
+    //% block="D1"
+    12,
+    //% block="E1"
+    14,
+    //% block="F1"
+    15,
+    //% block="G1"
+    17,
+    //% block="A1"
+    19,
+    //% block="B1"
+    21,
+    //% block="C2"
+    22,
+    //% block="D2"
+    24,
+    //% block="E2"
+    26,
+    //% block="F2"
+    27,
+    //% block="G2"
+    29,
+    //% block="A2"
+    31,
+    //% block="B2"
+    33
+}
+
 //% color="#1e90ff" iconWidth=50 iconHeight=40
 namespace petoi_robot{
 /*    
@@ -73,7 +111,7 @@ namespace petoi_robot{
     }  
 	
 	
-	//% block="Joint index [INDEX] Rotate angle [ANGLE]" blockType="reporter"
+	//% block="Joint index [INDEX] Rotate to [ANGLE] degree" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"  INDEX.defl="INDEX.8"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
 	export function jointAngle(parameter: any, block: any) {
@@ -81,6 +119,19 @@ namespace petoi_robot{
         var angle=parameter.ANGLE.code;
 
 		Generator.addCode(`creatList(${index}, ${angle})`);
+	}
+
+
+    //% block="Joint index [INDEX] offset [DIRECTION] [ANGLE] degree" blockType="reporter"
+	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"  INDEX.defl="INDEX.8"
+    //% DIRECTION.shadow="dropdown"  DIRECTION.options="DIRECTION"  DIRECTION.defl="DIRECTION.+"
+	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
+	export function jointRelativeAngle(parameter: any, block: any) {
+        var index=parameter.INDEX.code;
+        var symbol=parameter.DIRECTION.code;
+        var angle=parameter.ANGLE.code;
+
+		Generator.addCode(`relative2abs(${index}, ${symbol}, ${angle})`);
 	}
 	
 	
@@ -104,7 +155,7 @@ namespace petoi_robot{
 	}
 	
 	
-	//% block="Turn some joints sequentially [LIST] and delay [TIME] seconds" blockType="command"
+	//% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
 	export function excuteSeq(parameter: any, block: any) {
@@ -115,7 +166,7 @@ namespace petoi_robot{
         Generator.addCode(`sendLongCmd('M', ${iaList}, ${t})`);
 	}
 	
-	//% block="Turn some joints simultaneously [LIST] and delay [TIME] seconds" blockType="command"
+	//% block="Turn simultaneously [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
 	export function excuteSim(parameter: any, block: any) {
@@ -146,6 +197,38 @@ namespace petoi_robot{
 
         Generator.addCode(`# The length of list is 16. The list format is [angle, angle, angle...]`)
         Generator.addCode(`sendLongCmd('L', ${iaList}, ${t})`);
+	}
+
+
+    //% block="Music note[NOTE] Duration [DUR]" blockType="reporter"
+	//% NOTE.shadow="dropdown"  NOTE.options="NOTE"  NOTE.defl="NOTE.C1"
+	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  ANGLE.defl=2
+	export function noteDur(parameter: any, block: any) {
+        var note=parameter.NOTE.code;
+        var dur=parameter.DUR.code;
+
+		Generator.addCode(`creatList(${note}, ${dur})`);
+	}
+
+
+    //% block="Music note and duration list [LIST]" blockType="reporter"
+	//% LIST.shadow="list"  LIST.defl='14,4,14,4,21,4,21,4,23,4,23,4,21,2'
+	export function noteDurList(parameter: any, block: any) {
+        var listNoteDur=parameter.LIST.code;
+
+		Generator.addCode(`${listNoteDur}`);
+	}
+
+
+    //% block="Play melody [LIST] and delay [TIME] seconds" blockType="command"
+    //% LIST.shadow="normal"
+    //% TIME.shadow="number" TIME.defl=1
+	export function playMelody(parameter: any, block: any) {
+        var noteDurList=parameter.LIST.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`# The list format is [note, duration, note, duration...]`)
+        Generator.addCode(`sendLongCmd('B', ${noteDurList}, ${t})`);
 	}
 
 

@@ -8,7 +8,18 @@
         ["pee", "kpee"],
 		["check around", "kck"],
 		["walk foward", "kwkF"],
+        ["walkLeft", "kwkL"],
+        ["walkRight", "kwkR"],
 		["back", "kbk"],
+        ["backLeft", "kbkL"],
+        ["backRight", "kbkR"],
+        ["crawl", "kcrF"],
+        ["crawlLeft", "kcrL"],
+        ["crawlRight", "kcrR"],
+        ["bound", "kbdF"],
+        ["bound", "kbdF"],
+        ["bound", "kbdF"],
+        ["bound", "kbdF"],
         ["stretch", "kstr"]]
     }
 }
