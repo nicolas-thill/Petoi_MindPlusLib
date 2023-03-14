@@ -83,6 +83,24 @@ namespace petoi_robot{
     }
 */
 
+
+    //% block="auto connect serial ports" blockType="command"
+    export function autoConnect(parameter: any, block: any) {
+/*        
+        let port=parameter.PORT.code;
+
+        Generator.addImport(`import binascii`);
+        Generator.addImport(`import serial`);
+
+		Generator.addImport(`import time`);
+        Generator.addImport(`from SerialCommunication import *`);
+*/
+        Generator.addImport(`from PetoiRobot import *`);
+
+		Generator.addCode(`autoConnect()`);
+    }
+
+
     //% block="open serial port [PORT]" blockType="command"
     //% PORT.shadow="string" PORT.defl="COM3"
     export function openSerialPort(parameter: any, block: any) {

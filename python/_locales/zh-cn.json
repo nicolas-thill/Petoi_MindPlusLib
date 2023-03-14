@@ -1,4 +1,5 @@
 {
+    "petoi_robot.autoConnect|block": "自动连接串口",
     "petoi_robot.openSerialPort|block": "打开串口[PORT]",
     "petoi_robot.excuteSkill|block": "执行技能[SKILL]后延时[TIME]秒",
     "petoi_robot.jointAngle|block": "关节[INDEX]旋转到[ANGLE]度",

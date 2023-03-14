@@ -2,9 +2,11 @@
 
 # MindPlus
 # Python
+from ardSerial import *
 from SerialCommunication import *
 import struct
 import time
+import re
 
 
 currentAng = [0, 0, 0, 0,
@@ -22,14 +24,27 @@ def printH(head, value):
 def getCurAng(index):
     global currentAng
     token = 'j'
-    in_str = token + '\n'
-    com.Send_data(encode(in_str))
-    rawData = checkResponse(token)
-    # printH('rawData: ', rawData[1])
-    tempStr = rawData[1].split('\n')
-    angleList = tempStr[1].split(',')
-    currentAng = list(map(lambda x:int(x),angleList[:-1])) #angle value have to be integer
-    # printH('currentAng: ', currentAng)
+    # in_str = token + '\n'
+    # com.Send_data(encode(in_str))
+    rawData = send(goodPorts, [token, 0])
+    # rawData = checkResponse(token)
+    # rawData = printSerialMessage(port, token, timeout)
+    printH('rawData: ', rawData)        # rawData[1]
+    p = re.compile(r'^(.*),',re.MULTILINE)
+    # strAngle = []
+    for one in p.findall(rawData[1]):
+        angle = re.sub('\t','',one)
+        # strAngle.append(angle)
+
+    # printH('rawData: ', rawData)  
+    # tempStr = rawData[1].split('\n')
+    # printH('tempStr: ', tempStr)
+    # angleList = re.findall(r"\d,\s{15,16}\n",rawData[1])
+    # printH('tempStr: ', tempStr)
+    angleList = angle.split(',')
+    printH('angleList: ', angleList)
+    currentAng = list(map(lambda x:int(x),angleList)) #angle value have to be integer
+    printH('currentAng: ', currentAng)
     return currentAng[index]
 
 
@@ -67,16 +82,24 @@ def encode(in_str, encoding='utf-8'):
     else:
         return in_str.encode(encoding)
 
-com = None
+# com = None
 # open the serial port 
 def openPort(port):
-    global com
-    com = Communication(port,115200,timeout=0.002)
+    # global com
+    # com = Communication(port,115200,timeout=0.002)
+    serialObject = Communication(port, 115200, 1)
+    testPort(goodPorts, serialObject, port.split('/')[-1])
     t = 5
     print('Time delay after open port: ', str(t))
     time.sleep(t)
 
 
+# auto connect serial ports
+def autoConnect():
+    connectPort(goodPorts)
+    printH('goodPorts: ', goodPorts)
+
+'''
 # check if there is a response
 def checkResponse(tk, timeout=0):
     token = tk
@@ -111,26 +134,28 @@ def checkResponse(tk, timeout=0):
         if 0 < timeout < now - startTime:
             return -1
         time.sleep(0.001)
-
+'''
 
 # send a short skill string
 def sendSkillStr(skillStr, delayTime):
-    in_str = skillStr + '\n'
+    # in_str = skillStr + '\n'
     # com.write(bytes(skillStr, 'utf-8'))
-    com.Send_data(encode(in_str))
-    checkResponse('k')
-    # time.sleep(delayTime+1)
+    # com.Send_data(encode(in_str))
+    # checkResponse('k')
+    # time.sleep(delayTime)
+    send(goodPorts, [skillStr,delayTime])
+    
 
 
 # if token == 'c' or token == 'm' or token == 'i' or token == 'b' or token == 'u' or token == 't'
 # if the length of list var is > 22, send 22 elements each time, untill all the elements are sent over
 def sendLongCmd(token, var, delayTime):
-    message = token
-    count = 0
+    # message = token
+    # count = 0
     var = list(map(int, var))
             
-    in_str = token.encode() + struct.pack('b' * len(var), *var) + '~'.encode()
-    com.Send_data(encode(in_str))
+    # in_str = token.encode() + struct.pack('b' * len(var), *var) + '~'.encode()
+    # com.Send_data(encode(in_str))
     # for element in var:
     #     message += str(element) + " "
     #     count +=1
@@ -138,8 +163,9 @@ def sendLongCmd(token, var, delayTime):
     #         com.Send_data(encode(message))
     #         message = ""
     #         count = 0
-    checkResponse(token)
-    time.sleep(delayTime)
+    # checkResponse(token)
+    # time.sleep(delayTime)
+    send(goodPorts,[token, var, delayTime])
 
 
 # # initialize a list
@@ -153,8 +179,9 @@ def closePort():
         """
         close serial port
         """
-        global com
-        com.Close_Engine()  # close serial port
+        # global com
+        # com.Close_Engine()  # close serial port
+        closeAllSerial(goodPorts)
 
 
     
