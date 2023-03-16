@@ -11,9 +11,9 @@
         ["RF knee","13"],
         ["RB knee","14"],
         ["LB knee","15"]],
-        "default_getJointAngle_INDEX":"8",
-        "default_jointAngle_INDEX":"8",
-        "default_jointRelativeAngle_INDEX":"8"
+        "default_getJointAngle_INDEX":"0",
+        "default_jointAngle_INDEX":"0",
+        "default_jointRelativeAngle_INDEX":"0"
     },
 
     "SKILL": {
