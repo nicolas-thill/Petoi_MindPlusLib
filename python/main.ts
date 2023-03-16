@@ -81,6 +81,14 @@ namespace petoi_robot{
 
 		Generator.addCode(`openPort(${port})`);
     }
+
+
+    //% block="Deactivate Gyro" blockType="command"
+    export function deacGyro(parameter: any, block: any) {
+    
+        Generator.addCode(`deacGyro()`);
+        
+    }
 	
 	
 	//% block="Excute the skill [SKILL] and delay [TIME] seconds" blockType="command"
@@ -94,7 +102,7 @@ namespace petoi_robot{
     }  
 	
 
-    //% block="Get Joint [INDEX] angle" blockType="reporter"
+    //% block="Get [INDEX] angle" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
 	export function getJointAngle(parameter: any, block: any) {
         var index=parameter.INDEX.code;
@@ -102,7 +110,7 @@ namespace petoi_robot{
 		Generator.addCode(`getCurAng(${index})`);
 	}
 	
-	//% block="Joint [INDEX] Rotate to [ANGLE] degree" blockType="reporter"
+	//% block="[INDEX] to [ANGLE] degree" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
 	export function jointAngle(parameter: any, block: any) {
@@ -113,7 +121,7 @@ namespace petoi_robot{
 	}
 
 
-    //% block="Joint [INDEX] offset [DIRECTION] [ANGLE] degree" blockType="reporter"
+    //% block="[INDEX] [DIRECTION] [ANGLE] degree" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
     //% DIRECTION.shadow="dropdown"  DIRECTION.options="DIRECTION"  DIRECTION.defl="DIRECTION.+"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
@@ -125,19 +133,8 @@ namespace petoi_robot{
 		Generator.addCode(`relative2abs(${index}, ${symbol}, ${angle})`);
 	}
 	
-	
-	//% block="Join [LIST1] and [LIST2]" blockType="reporter"
-	//% LIST1.shadow="normal"
-	//% LIST2.shadow="normal"
-	export function joinList(parameter: any, block: any) {
-        var l1=parameter.LIST1.code;
-        var l2=parameter.LIST2.code;
 
-		Generator.addCode(`combineList(${l1}, ${l2})`);
-	}
-
-
-    //% block="Joint index and rotate angle list [LIST]" blockType="reporter"
+    //% block="Joint index and angle list [LIST]" blockType="reporter"
 	//% LIST.shadow="list"  LIST.defl='8, 30, 9, 30, 10, 30, 11, 30'
 	export function jointAngleList(parameter: any, block: any) {
         var listJointAngle=parameter.LIST.code;
@@ -170,7 +167,7 @@ namespace petoi_robot{
 
 
 
-    //% block="All of the joints angles [ANGLE]" blockType="reporter"
+    //% block="joints frame [ANGLE]" blockType="reporter"
 	//% ANGLE.shadow="list"  ANGLE.defl='0, 0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30'
 	export function angleList(parameter: any, block: any) {
         var angle=parameter.ANGLE.code;
@@ -191,7 +188,7 @@ namespace petoi_robot{
 	}
 
 
-    //% block="Music note[NOTE] Duration [DUR]" blockType="reporter"
+    //% block="Music note[NOTE] Duration 1/[DUR]" blockType="reporter"
 	//% NOTE.shadow="dropdown"  NOTE.options="NOTE"  NOTE.defl="NOTE.C1"
 	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  ANGLE.defl=2
 	export function noteDur(parameter: any, block: any) {

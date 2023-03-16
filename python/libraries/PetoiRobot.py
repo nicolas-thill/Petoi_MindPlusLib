@@ -21,6 +21,15 @@ def printH(head, value):
     print(value)
 
 
+def deacGyro():
+    res = send(goodPorts, ['G', 0])
+    # printH("gyro status:",res )
+    logger.debug(f'gyro status:{res}')
+    if res != -1 and res[0] == 'G':
+        res = send(goodPorts, ['G', 0])
+        # printH("gyro status:",res )
+        logger.debug(f'gyro status:{res}')
+
 def getCurAng(index):
     global currentAng
     token = 'j'
@@ -64,13 +73,13 @@ def relative2abs(index, symbol, angle):
     newList.append(absAngle)
     return newList
 
-
+'''
 # combine the list
 def combineList(list1, list2):
     cList = list1
     cList.extend(list2)
     return cList
-
+'''
 
 # encode the character to bytes
 def encode(in_str, encoding='utf-8'):
