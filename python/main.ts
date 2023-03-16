@@ -1,38 +1,3 @@
-enum INDEX {
-    //% block="0"
-    0,
-    //% block="1"
-    1,
-    //% block="2"
-    2,
-    //% block="3"
-    3,
-    //% block="4"
-    4,
-    //% block="5"
-    5,
-    //% block="6"
-    6,
-    //% block="7"
-    7,
-    //% block="8"
-    8,
-    //% block="9"
-    9,
-    //% block="10"
-    10,
-    //% block="11"
-    11,
-    //% block="12"
-    12,
-    //% block="13"
-    13,
-    //% block="14"
-    14,
-    //% block="15"
-    15
-}
-
 enum DIRECTION {
     //% block="+"
     "1",
@@ -128,9 +93,17 @@ namespace petoi_robot{
         Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
     }  
 	
+
+    //% block="Get Joint [INDEX] angle" blockType="reporter"
+	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
+	export function getJointAngle(parameter: any, block: any) {
+        var index=parameter.INDEX.code;
+
+		Generator.addCode(`getCurAng(${index})`);
+	}
 	
-	//% block="Joint index [INDEX] Rotate to [ANGLE] degree" blockType="reporter"
-	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"  INDEX.defl="INDEX.8"
+	//% block="Joint [INDEX] Rotate to [ANGLE] degree" blockType="reporter"
+	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
 	export function jointAngle(parameter: any, block: any) {
         var index=parameter.INDEX.code;
@@ -140,8 +113,8 @@ namespace petoi_robot{
 	}
 
 
-    //% block="Joint index [INDEX] offset [DIRECTION] [ANGLE] degree" blockType="reporter"
-	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"  INDEX.defl="INDEX.8"
+    //% block="Joint [INDEX] offset [DIRECTION] [ANGLE] degree" blockType="reporter"
+	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
     //% DIRECTION.shadow="dropdown"  DIRECTION.options="DIRECTION"  DIRECTION.defl="DIRECTION.+"
 	//% ANGLE.shadow="range"  ANGLE.params.min=-125  ANGLE.params.max=125  ANGLE.defl=30
 	export function jointRelativeAngle(parameter: any, block: any) {

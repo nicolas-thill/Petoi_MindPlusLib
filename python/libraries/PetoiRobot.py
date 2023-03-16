@@ -24,27 +24,24 @@ def printH(head, value):
 def getCurAng(index):
     global currentAng
     token = 'j'
+    task = [token, 0]
     # in_str = token + '\n'
     # com.Send_data(encode(in_str))
-    rawData = send(goodPorts, [token, 0])
     # rawData = checkResponse(token)
-    # rawData = printSerialMessage(port, token, timeout)
-    printH('rawData: ', rawData)        # rawData[1]
+    if isinstance(goodPorts, dict):
+        p = list(goodPorts.keys())
+    elif isinstance(goodPorts, list):
+        p = goodPorts
+    rawData = sendTask(goodPorts, p[0], task)
+
+    logger.debug(f'rawData={rawData}')
     p = re.compile(r'^(.*),',re.MULTILINE)
-    # strAngle = []
     for one in p.findall(rawData[1]):
         angle = re.sub('\t','',one)
-        # strAngle.append(angle)
-
-    # printH('rawData: ', rawData)  
-    # tempStr = rawData[1].split('\n')
-    # printH('tempStr: ', tempStr)
-    # angleList = re.findall(r"\d,\s{15,16}\n",rawData[1])
-    # printH('tempStr: ', tempStr)
     angleList = angle.split(',')
-    printH('angleList: ', angleList)
+    logger.debug(f'angleList={angleList}')
     currentAng = list(map(lambda x:int(x),angleList)) #angle value have to be integer
-    printH('currentAng: ', currentAng)
+    logger.debug(f'currentAng={currentAng}')
     return currentAng[index]
 
 
@@ -62,7 +59,7 @@ def relative2abs(index, symbol, angle):
     curAngle = getCurAng(index)
     absAngle = curAngle + int(symbol) * angle
     absAngle = min(125,max(-125,absAngle))
-    # printH('absAngle: ', absAngle)
+    logger.debug(f'absAngle={absAngle}')
     newList.append(index)
     newList.append(absAngle)
     return newList
@@ -89,7 +86,7 @@ def openPort(port):
     # com = Communication(port,115200,timeout=0.002)
     serialObject = Communication(port, 115200, 1)
     testPort(goodPorts, serialObject, port.split('/')[-1])
-    t = 5
+    t = 3
     print('Time delay after open port: ', str(t))
     time.sleep(t)
 
