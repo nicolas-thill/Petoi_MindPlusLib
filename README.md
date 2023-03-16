@@ -7,11 +7,15 @@
 
 ## Table of Contents
 
-* [URL](#url)
-* [Summary](#summary)
-* [Blocks](#blocks)
-* [License](#license)
-* [Supported targets](#Supportedtargets)
+- [Petoi Robot](#petoi-robot)
+  - [Table of Contents](#table-of-contents)
+  - [URL](#url)
+  - [Summary](#summary)
+  - [How to use](#how-to-use)
+  - [Examples](#examples)
+  - [License](#license)
+  - [Supported targets](#supported-targets)
+  - [Release Logs](#release-logs)
 
 ## URL
 * Project URL : ```https://github.com/JasonWong08/ext-petoi_robot```
@@ -20,10 +24,13 @@
 ## Summary
 Use the user library of Mind+V1.7.3 and above to load this extension to control the Petoi robot to show various skills.
 
-## Blocks
-
-![](./python/_images/blocks.png)
-
+## How to use
+Input the project URL in the interface to import this library as follows:
+![](./python/_images/Import_Step1.png)
+![](./python/_images/Import_Step2.png)
+![](./python/_images/Import_Step3.png)
+![](./python/_images/Import_Step4.png)
+![](./python/_images/Import_Step5.png)
 
 ## Examples
 
