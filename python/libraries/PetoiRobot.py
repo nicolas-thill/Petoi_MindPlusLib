@@ -149,8 +149,24 @@ def sendSkillStr(skillStr, delayTime):
     # com.Send_data(encode(in_str))
     # checkResponse('k')
     # time.sleep(delayTime)
+    logger.debug(f'skillStr={skillStr}')
     send(goodPorts, [skillStr,delayTime])
     
+
+# send a command string
+def sendCmdStr(cmdStr, delayTime):
+    logger.debug(f'serialCmd={cmdStr}')
+    if cmdStr != '':
+        token = cmdStr[0]
+        logger.debug(f'cmdList={token}')
+        cmdList = cmdStr[1:].replace(',',' ').split()
+        logger.debug(f'cmdList={cmdList}')
+
+        if len(cmdList) <= 1:
+            send(goodPorts, [cmdStr, delayTime])
+        else:
+            cmdList = list(map(lambda x:int(x),cmdList))
+            send(goodPorts, [token, cmdList, delayTime])
 
 
 # if token == 'c' or token == 'm' or token == 'i' or token == 'b' or token == 'u' or token == 't'

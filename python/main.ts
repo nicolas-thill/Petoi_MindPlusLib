@@ -91,10 +91,10 @@ namespace petoi_robot{
     }
 	
 	
-	//% block="Excute the skill [SKILL] and delay [TIME] seconds" blockType="command"
+	//% block="Execute the skill [SKILL] and delay [TIME] seconds" blockType="command"
     //% SKILL.shadow="dropdown"  SKILL.options="SKILL"
-    //% TIME.shadow="number" TIME.defl=0.2	
-    export function excuteSkill(parameter: any, block: any) {
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function executeSkill(parameter: any, block: any) {
         var skill=parameter.SKILL.code;
         var t=parameter.TIME.code;
 
@@ -146,7 +146,7 @@ namespace petoi_robot{
 	//% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
-	export function excuteSeq(parameter: any, block: any) {
+	export function executeSeq(parameter: any, block: any) {
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
@@ -157,7 +157,7 @@ namespace petoi_robot{
 	//% block="Turn simultaneously [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
-	export function excuteSim(parameter: any, block: any) {
+	export function executeSim(parameter: any, block: any) {
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
@@ -179,7 +179,7 @@ namespace petoi_robot{
     //% block="Transform to frame [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
-	export function excuteAllSim(parameter: any, block: any) {
+	export function executeAllSim(parameter: any, block: any) {
         var iaList=parameter.LIST.code;
         var t=parameter.TIME.code;
 
@@ -218,6 +218,18 @@ namespace petoi_robot{
         Generator.addCode(`# The list format is [note, duration, note, duration...]`)
         Generator.addCode(`sendLongCmd('B', ${noteDurList}, ${t})`);
 	}
+
+
+    //% block="Execute the command [CMD] and delay [TIME] seconds" blockType="command"
+    //% CMD.shadow="string" CMD.defl="m0 -60 0 60 0 0"
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function executeCmd(parameter: any, block: any) {
+        let cmd=parameter.CMD.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`sendCmdStr(${cmd}, ${t})`);
+
+    }
 
 
 	//% block="Close serial port" blockType="command"
