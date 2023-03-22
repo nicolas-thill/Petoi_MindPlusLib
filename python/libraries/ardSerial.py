@@ -102,7 +102,10 @@ def serialWriteNumToByte(port, token, var=None):  # Only to be used for c m u b 
                         message[l*2+1]*=1   #8  #change 1 to 8 to save time for tests
                         print(message[l*2],end=",")
                         print(message[l*2+1],end=",")
-            in_str = struct.pack('b' * len(message), *message)
+            if token == 'W' or token == 'C':
+                in_str = struct.pack('B' * len(message), *message)
+            else:
+                in_str = struct.pack('b' * len(message), *message)
             in_str = token.encode() + in_str + '~'.encode()
 
         else:#if token == 'c' or token == 'm' or token == 'i' or token == 'b' or token == 'u' or token == 't':
@@ -112,7 +115,6 @@ def serialWriteNumToByte(port, token, var=None):  # Only to be used for c m u b 
             in_str = token.encode()+encode(message) +'\n'.encode()
 
     slice = 0
-    printH("send len ",len(in_str))
     while len(in_str) > slice:
         if len(in_str) - slice >= 20:
             port.Send_data(in_str[slice:slice+20])
@@ -165,13 +167,14 @@ def printSerialMessage(port, token, timeout=0):
         if port:
             response = port.main_engine.readline().decode('ISO-8859-1')
             if response != '':
-                #                startTime = time.time()
-                response = response[:-2]  # delete '\r\n'
-                if response.lower() == token.lower():
+                logger.debug(f"response is: {response}")
+                responseTrim = response.replace('\r','').replace('\n','')
+                logger.debug(f"responseTrim is: {responseTrim}")
+                if responseTrim[0].lower() == token.lower():
                     return [response, allPrints]
                 else:
                     print(response, flush=True)
-                    allPrints += response + '\n'
+                    allPrints += response
         now = time.time()
         if (now - startTime) > threshold:
             print('Elapsed time: ', end='')
@@ -489,13 +492,13 @@ def testPort(PortList, serialObject, p):
             print(result)
             if result != -1:
                 printH('Adding', p)
-                for r in result:
-                    if 'Bittle' in r:
-                        var.model_ = 'Bittle'
-                        break
-                    elif 'Nybble' in r:
-                        var.model_ = 'Nybble'
-                        break
+                # for r in result:
+                #     if 'Bittle' in r:
+                #         var.model_ = 'Bittle'
+                #         break
+                #     elif 'Nybble' in r:
+                #         var.model_ = 'Nybble'
+                #         break
                 PortList.update({serialObject: p})
                 goodPortCount += 1
             else:
@@ -595,8 +598,8 @@ def connectPort(PortList):
         checkPortList(PortList,allPorts)
     initialized = True
     if len(PortList) == 0:
-        print('No port found!')
-        print('Replug mode')
+        print('No port found! Please make sure the serial port is found first on the computer side.')
+        # print('Replug mode')
         # replug(PortList)
     else:
         logger.info(f"Connect to serial port:")

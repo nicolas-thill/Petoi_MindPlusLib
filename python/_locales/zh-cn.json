@@ -15,6 +15,10 @@
     "petoi_robot.noteDurList|block": "音符及时值列表[LIST]",
     "petoi_robot.playMelody|block": "播放旋律[LIST]后延时[TIME]秒",
     "petoi_robot.executeCmd|block": "执行命令[CMD]后延时[TIME]秒",
+    "petoi_robot.readAnalogValue|block": "读取[APIN]模拟值",
+    "petoi_robot.readDigitalValue|block": "读取[DPIN]数字值",
+    "petoi_robot.writeAnalogValue|block": "设置[APIN]模拟值为[VAL]",
+    "petoi_robot.writeDigitalValue|block": "设置[DPIN]数字值为[DVAL]",
     "petoi_robot.closeSerialPort|block": "关闭串口",
 
     "petoi_robot.SKILL.sit|menu": "坐下",

@@ -20,6 +20,14 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
+'''
+def getPortList():
+    if isinstance(goodPorts, dict):
+        p = list(goodPorts.keys())
+    elif isinstance(goodPorts, list):
+        p = goodPorts
+    return p
+'''
 
 def deacGyro():
     res = send(goodPorts, ['G', 0])
@@ -37,11 +45,9 @@ def getCurAng(index):
     # in_str = token + '\n'
     # com.Send_data(encode(in_str))
     # rawData = checkResponse(token)
-    if isinstance(goodPorts, dict):
-        p = list(goodPorts.keys())
-    elif isinstance(goodPorts, list):
-        p = goodPorts
-    rawData = sendTask(goodPorts, p[0], task)
+    # p = getPortList()
+    # rawData = sendTask(goodPorts, p[0], task)
+    rawData = send(goodPorts, task)
 
     logger.debug(f'rawData={rawData}')
     p = re.compile(r'^(.*),',re.MULTILINE)
@@ -190,6 +196,64 @@ def sendLongCmd(token, var, delayTime):
     send(goodPorts,[token, var, delayTime])
 
 
+# get analog value of a pin
+def readAnalogValue(pin):
+    token = 'R'
+    task = [token, [97, pin], 0.1]
+
+    # p = getPortList()
+    # rawData = sendTask(goodPorts, p[0], task)
+    rawData = send(goodPorts, task)
+    if rawData!=-1:
+        logger.debug(f'rawData={rawData}')
+        # result = rawData[1][:-2]
+        result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
+        if  "Got " in result:  
+            # printH('###',result.split())
+            # printH("result is: ",result.split()[1])
+            return int(result.split()[1])
+    else:
+        return -1
+
+
+# get digital value of a pin
+def readDigitalValue(pin):
+    token = 'R'
+    task = [token, [100, pin], 0.1]
+
+    # p = getPortList()
+    # rawData = sendTask(goodPorts, p[0], task)
+    rawData = send(goodPorts, task)
+    if rawData!=-1:
+        logger.debug(f'rawData={rawData}')
+        # result = rawData[1][:-2]
+        result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
+        if  "Got " in result:  
+            # printH('###',result.split())
+            # print("result is ")
+            # print(result.split()[1])
+            return int(result.split()[1])
+    else:
+        return -1
+
+
+# set analog value of a pin
+def writeAnalogValue(pin, val):
+    token = 'W'
+    task = [token, [97, pin, val], 0.1]
+
+    rawData = send(goodPorts, task)
+
+
+# set digital value of a pin
+def writeDigitalValue(pin, val):
+    token = 'W'
+    task = [token, [100, pin, val], 0.1]
+
+    rawData = send(goodPorts, task)
+
+
+
 # # initialize a list
 # def initList(var):
 #     angList = var.split(",")
@@ -205,5 +269,3 @@ def closePort():
         # com.Close_Engine()  # close serial port
         closeAllSerial(goodPorts)
 
-
-    

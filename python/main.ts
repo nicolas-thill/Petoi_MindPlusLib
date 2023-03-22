@@ -5,6 +5,41 @@ enum DIRECTION {
     "-1",
 }
 
+enum APIN {
+    //% block="A2"
+    16,
+    //% block="A3"
+    17,
+    //% block="D6"
+    6,
+    //% block="D7"
+    7,
+    //% block="D8"
+    8,
+    //% block="D9"
+    9,
+    //% block="D10"
+    10
+}
+
+enum DPIN {
+    //% block="D6"
+    6,
+    //% block="D7"
+    7,
+    //% block="D8"
+    8,
+    //% block="D9"
+    9
+}
+
+enum DVAL {
+    //% block="0"
+    0,
+    //% block="1"
+    1
+}
+
 enum NOTE {
     //% block="C1"
     10,
@@ -190,7 +225,7 @@ namespace petoi_robot{
 
     //% block="Music note[NOTE] Duration 1/[DUR]" blockType="reporter"
 	//% NOTE.shadow="dropdown"  NOTE.options="NOTE"  NOTE.defl="NOTE.C1"
-	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  ANGLE.defl=2
+	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  DUR.defl=2
 	export function noteDur(parameter: any, block: any) {
         var note=parameter.NOTE.code;
         var dur=parameter.DUR.code;
@@ -232,6 +267,46 @@ namespace petoi_robot{
     }
 
 
+    //% block="Read the analog value of [APIN]" blockType="reporter"
+	//% APIN.shadow="dropdown"  APIN.options="APIN" APIN.defl="APIN.2"
+	export function readAnalogValue(parameter: any, block: any) {
+        var pin=parameter.APIN.code;
+
+		Generator.addCode(`readAnalogValue(${pin})`);
+	}
+
+
+    //% block="Read the digital value of [DPIN]" blockType="reporter"
+	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.8"
+	export function readDigitalValue(parameter: any, block: any) {
+        var pin=parameter.DPIN.code;
+
+		Generator.addCode(`readDigitalValue(${pin})`);
+	}
+
+
+    //% block="Write the analog [APIN] to [VAL]" blockType="command"
+	//% APIN.shadow="dropdown"  APIN.options="APIN" APIN.defl="APIN.2"
+    //% VAL.shadow="range"  VAL.params.min=1  VAL.params.max=255  VAL.defl=120
+	export function writeAnalogValue(parameter: any, block: any) {
+        var pin=parameter.APIN.code;
+        var val=parameter.VAL.code;
+
+		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+	}
+
+
+    //% block="Write the digital [DPIN] to [DVAL]" blockType="command"
+	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.8"
+    //% DVAL.shadow="dropdown"  DVAL.options="DVAL"  DVAL.defl="DVAL.1"
+	export function writeDigitalValue(parameter: any, block: any) {
+        var pin=parameter.DPIN.code;
+        var val=parameter.DVAL.code;
+
+		Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
+	}
+
+
 	//% block="Close serial port" blockType="command"
     export function closeSerialPort(parameter: any, block: any) {
     
@@ -239,13 +314,10 @@ namespace petoi_robot{
         
     }
 
-
 /*
     function replaceQuotationMarks(str:string){
             str=str.replace(/"/g, ""); //去除所有引号
             return str
     }
-*/
-
-    
+*/   
 }
