@@ -27,6 +27,12 @@ Input the project URL: **https://github.com/PetoiCamp/Petoi_MindPlusLib** in the
 <img width="613" alt="image" src="https://user-images.githubusercontent.com/9747608/227246863-bb229849-4470-494a-9e00-f674ce0ffe9a.png">
 <img width="612" alt="image" src="https://user-images.githubusercontent.com/9747608/227246912-f83f9640-2bf7-4dc8-8e2d-b329245a40d6.png">
 <img width="612" alt="image" src="https://user-images.githubusercontent.com/9747608/227247380-36ec328c-3fd2-4be0-b178-be542f5015c8.png">
+
+For Mac, you need to add [these library files](https://github.com/PetoiCamp/Petoi_MindPlusLib/tree/main/python/libraries) in 
+ **/Users/{your username}/Documents/mindplus-py/environment/Python3.6.5-64/lib/python3.6/site-packages/**
+ 
+<img width="692" alt="image" src="https://user-images.githubusercontent.com/9747608/227257791-ff42fee8-d4e7-4b9d-9fd1-f13777be15d6.png">
+
 <img width="612" alt="image" src="https://user-images.githubusercontent.com/9747608/227253384-eb749950-dca0-4240-b096-a2d023ef5405.png">
 
 ## Examples
