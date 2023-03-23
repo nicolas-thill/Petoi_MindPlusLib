@@ -99,6 +99,15 @@ def encode(in_str, encoding='utf-8'):
 def openPort(port):
     # global com
     # com = Communication(port,115200,timeout=0.002)
+    allPorts = Communication.Print_Used_Com()
+    print("\n*** Available serial ports: ***")
+    print(*allPorts, sep = "\n")
+    if platform.system() != "Windows": 
+        print('\n* Enter the following port into the manual connection block if it fail to connect automatically\n')
+        for p in allPorts:
+            if 'cu.usb' in p:
+                print(p.replace('/dev/',''),end='\n\n')
+    
     serialObject = Communication(port, 115200, 1)
     testPort(goodPorts, serialObject, port.split('/')[-1])
     t = 3

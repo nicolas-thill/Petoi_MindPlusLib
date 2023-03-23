@@ -1,4 +1,25 @@
 {
+    "ARPIN": {
+        "menu": [["A2", "16"],
+        ["A3", "17"],
+        ["Battery", "7"]],
+        "default_readAnalogValue_ARPIN":"16"
+    },
+
+    "AWPIN": {
+        "menu": [["D6", "6"],
+        ["D9", "9"],
+        ["D10", "10"],
+        ["Buzzer", "5"]],
+        "default_writeAnalogValue_AWPIN":"6"
+    },
+
+    "DVAL": {
+        "menu": [["LOW", "0"],
+        ["HIGH", "1"]],
+        "default_writeDigitalValue_DVAL":"1"
+    },
+
     "INDEX": {
         "menu": [["Head panning", "0"],
         ["Head tilting", "1"],
@@ -15,7 +36,6 @@
         "default_jointAngle_INDEX":"0",
         "default_jointRelativeAngle_INDEX":"0"
     },
-
 
     "SKILL": {
         "menu": [["sit", "ksit"],

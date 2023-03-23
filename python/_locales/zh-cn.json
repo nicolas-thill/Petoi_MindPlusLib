@@ -70,5 +70,12 @@
     "robot.INDEX.LF knee|menu": "左前膝",
     "robot.INDEX.RF knee|menu": "右前膝",
     "robot.INDEX.RB knee|menu": "右后膝",
-    "robot.INDEX.LB knee|menu": "左后膝"
+    "robot.INDEX.LB knee|menu": "左后膝",
+
+    "robot.ARPIN.Battery|menu": "电池",
+
+    "robot.AWPIN.Buzzer|menu": "蜂鸣器",
+
+    "robot.DVAL.LOW|menu": "低",
+    "robot.DVAL.HIGH|menu": "高"
 }

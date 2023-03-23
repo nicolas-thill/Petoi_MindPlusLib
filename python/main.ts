@@ -5,26 +5,6 @@ enum DIRECTION {
     "-1",
 }
 
-enum ARPIN {
-    //% block="A2"
-    16,
-    //% block="A3"
-    17,
-    //% block="Battery"
-    7
-}
-
-enum AWPIN {
-    //% block="D6"
-    6,
-    //% block="D9"
-    9,
-    //% block="D10"
-    10,
-    //% block="Buzzer"
-    5
-}
-
 enum DPIN {
     //% block="D6"
     6,
@@ -40,13 +20,6 @@ enum DPIN {
     16,
     //% block="A3"
     17,
-}
-
-enum DVAL {
-    //% block="0"
-    0,
-    //% block="1"
-    1
 }
 
 enum NOTE {
@@ -277,7 +250,7 @@ namespace robot{
 
 
     //% block="Analog write [AVAL] to [AWPIN]" blockType="command"
-	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN" AWPIN.defl="AWPIN.6"
+	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN"
     //% AVAL.shadow="range"  AVAL.params.min=1  AVAL.params.max=255  AVAL.defl=120
 	export function writeAnalogValue(parameter: any, block: any) {
         var pin=parameter.AWPIN.code;
@@ -288,7 +261,7 @@ namespace robot{
 
 
     //% block="Analog read [ARPIN]" blockType="reporter"
-	//% ARPIN.shadow="dropdown"  ARPIN.options="ARPIN" ARPIN.defl="ARPIN.16"
+	//% ARPIN.shadow="dropdown"  ARPIN.options="ARPIN"
 	export function readAnalogValue(parameter: any, block: any) {
         var pin=parameter.ARPIN.code;
 
@@ -298,7 +271,7 @@ namespace robot{
 
     //% block="Digital write [DVAL] to [DPIN]" blockType="command"
 	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
-    //% DVAL.shadow="dropdown"  DVAL.options="DVAL"  DVAL.defl="DVAL.1"
+    //% DVAL.shadow="dropdown"  DVAL.options="DVAL"
 	export function writeDigitalValue(parameter: any, block: any) {
         var pin=parameter.DPIN.code;
         var val=parameter.DVAL.code;

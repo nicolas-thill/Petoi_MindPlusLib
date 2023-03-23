@@ -19,7 +19,7 @@
 
 ## URL
 * Project URL : ```https://github.com/JasonWong08/ext-petoi_robot```
-* Get a purchase connection: [store](https://www.petoi.com/collections/robots).
+* Link to the online store : [store](https://www.petoi.com/collections/robots).
 
 ## Summary
 Use the user library of Mind+V1.7.3 and above to load this extension to control the Petoi robot to show various skills.
