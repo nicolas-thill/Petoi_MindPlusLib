@@ -81,7 +81,7 @@ enum NOTE {
 }
 
 //% color="#1e90ff" iconWidth=50 iconHeight=40
-namespace petoi_robot{
+namespace robot{
 /*    
     //% block="import libraries" blockType="command"
     export function importLibraries(parameter: any, block: any) {

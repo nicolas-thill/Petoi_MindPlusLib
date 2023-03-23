@@ -1,17 +1,17 @@
 {
     "name": {
-      "zh-cn": "Petoi技能编辑工具",
-      "en": "Petoi Skill Editor"
+      "zh-cn": "编程积木",
+      "en": "Coding Blocks"
     },
     "description": {
-      "zh-cn": "通过Python脚本控制机器人展示各种技能。",
-      "en": "Control the robot to show various skills through Python script."
+      "zh-cn": "使用积木块控制Petoi机器人。",
+      "en": "Control the Petoi robot with block-based drag-and-drop programming."
     },
-    "author": "jason",
+    "author": "Petoi",
     "email": "jason.wang@petoi.com",
     "license": "MIT",
     "isBoard": false,
-    "id": "petoi_robot",
+    "id": "robot",
     "platform": ["win","mac","web","linux"],
     "version": "0.0.1",
     "asset": {
