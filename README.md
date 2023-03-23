@@ -1,4 +1,4 @@
-# Petoi Robot
+# Mind Plus Expansion Library for Petoi Robots
 <img src="./python/_images/featured.png" width="300">
 
 ---------------------------------------------------------
