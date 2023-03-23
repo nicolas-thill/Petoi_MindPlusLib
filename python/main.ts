@@ -5,21 +5,24 @@ enum DIRECTION {
     "-1",
 }
 
-enum APIN {
+enum ARPIN {
     //% block="A2"
     16,
     //% block="A3"
     17,
+    //% block="Battery"
+    7
+}
+
+enum AWPIN {
     //% block="D6"
     6,
-    //% block="D7"
-    7,
-    //% block="D8"
-    8,
     //% block="D9"
     9,
     //% block="D10"
-    10
+    10,
+    //% block="Buzzer"
+    5
 }
 
 enum DPIN {
@@ -30,7 +33,13 @@ enum DPIN {
     //% block="D8"
     8,
     //% block="D9"
-    9
+    9,
+    //% block="D10"
+    10,
+    //% block="A2"
+    16,
+    //% block="A3"
+    17,
 }
 
 enum DVAL {
@@ -267,17 +276,17 @@ namespace petoi_robot{
     }
 
 
-    //% block="Read the analog value of [APIN]" blockType="reporter"
-	//% APIN.shadow="dropdown"  APIN.options="APIN" APIN.defl="APIN.2"
+    //% block="Read the analog value of [ARPIN]" blockType="reporter"
+	//% ARPIN.shadow="dropdown"  ARPIN.options="ARPIN" ARPIN.defl="ARPIN.16"
 	export function readAnalogValue(parameter: any, block: any) {
-        var pin=parameter.APIN.code;
+        var pin=parameter.ARPIN.code;
 
 		Generator.addCode(`readAnalogValue(${pin})`);
 	}
 
 
     //% block="Read the digital value of [DPIN]" blockType="reporter"
-	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.8"
+	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
 	export function readDigitalValue(parameter: any, block: any) {
         var pin=parameter.DPIN.code;
 
@@ -285,11 +294,11 @@ namespace petoi_robot{
 	}
 
 
-    //% block="Write the analog [APIN] to [VAL]" blockType="command"
-	//% APIN.shadow="dropdown"  APIN.options="APIN" APIN.defl="APIN.2"
+    //% block="Write the analog [AWPIN] to [VAL]" blockType="command"
+	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN" AWPIN.defl="AWPIN.6"
     //% VAL.shadow="range"  VAL.params.min=1  VAL.params.max=255  VAL.defl=120
 	export function writeAnalogValue(parameter: any, block: any) {
-        var pin=parameter.APIN.code;
+        var pin=parameter.AWPIN.code;
         var val=parameter.VAL.code;
 
 		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
@@ -297,7 +306,7 @@ namespace petoi_robot{
 
 
     //% block="Write the digital [DPIN] to [DVAL]" blockType="command"
-	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.8"
+	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
     //% DVAL.shadow="dropdown"  DVAL.options="DVAL"  DVAL.defl="DVAL.1"
 	export function writeDigitalValue(parameter: any, block: any) {
         var pin=parameter.DPIN.code;
