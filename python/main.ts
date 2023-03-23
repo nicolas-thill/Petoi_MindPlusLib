@@ -93,7 +93,7 @@ namespace robot{
 */
 
 
-    //% block="auto connect serial ports" blockType="command"
+    //% block="Auto open serial port" blockType="command"
     export function autoConnect(parameter: any, block: any) {
 /*        
         let port=parameter.PORT.code;
@@ -110,7 +110,7 @@ namespace robot{
     }
 
 
-    //% block="open serial port [PORT]" blockType="command"
+    //% block="Open serial port [PORT]" blockType="command"
     //% PORT.shadow="string" PORT.defl="COM3"
     export function openSerialPort(parameter: any, block: any) {
         let port=parameter.PORT.code;
@@ -146,13 +146,28 @@ namespace robot{
     }  
 	
 
-    //% block="Get [INDEX] angle" blockType="reporter"
-	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
-	export function getJointAngle(parameter: any, block: any) {
-        var index=parameter.INDEX.code;
+    //% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
+    //% LIST.shadow="normal"
+    //% TIME.shadow="number" TIME.defl=0.2
+	export function executeSeq(parameter: any, block: any) {
+        var iaList=parameter.LIST.code;
+        var t=parameter.TIME.code;
 
-		Generator.addCode(`getCurAng(${index})`);
+        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
+        Generator.addCode(`sendLongCmd('M', ${iaList}, ${t})`);
 	}
+	
+	//% block="Turn simultaneously [LIST] and delay [TIME] seconds" blockType="command"
+    //% LIST.shadow="normal"
+    //% TIME.shadow="number" TIME.defl=0.2
+	export function executeSim(parameter: any, block: any) {
+        var iaList=parameter.LIST.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
+        Generator.addCode(`sendLongCmd('I', ${iaList}, ${t})`);
+	}
+
 	
 	//% block="[INDEX] to [ANGLE] degree" blockType="reporter"
 	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
@@ -176,6 +191,15 @@ namespace robot{
 
 		Generator.addCode(`relative2abs(${index}, ${symbol}, ${angle})`);
 	}
+
+
+    //% block="Get [INDEX] angle" blockType="reporter"
+	//% INDEX.shadow="dropdown"  INDEX.options="INDEX"
+	export function getJointAngle(parameter: any, block: any) {
+        var index=parameter.INDEX.code;
+
+		Generator.addCode(`getCurAng(${index})`);
+	}
 	
 
     //% block="Joint index and angle list [LIST]" blockType="reporter"
@@ -187,39 +211,6 @@ namespace robot{
 	}
 	
 	
-	//% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
-    //% LIST.shadow="normal"
-    //% TIME.shadow="number" TIME.defl=0.2
-	export function executeSeq(parameter: any, block: any) {
-        var iaList=parameter.LIST.code;
-        var t=parameter.TIME.code;
-
-        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
-        Generator.addCode(`sendLongCmd('M', ${iaList}, ${t})`);
-	}
-	
-	//% block="Turn simultaneously [LIST] and delay [TIME] seconds" blockType="command"
-    //% LIST.shadow="normal"
-    //% TIME.shadow="number" TIME.defl=0.2
-	export function executeSim(parameter: any, block: any) {
-        var iaList=parameter.LIST.code;
-        var t=parameter.TIME.code;
-
-        Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
-        Generator.addCode(`sendLongCmd('I', ${iaList}, ${t})`);
-	}
-
-
-
-    //% block="action frame [ANGLE]" blockType="reporter"
-	//% ANGLE.shadow="list"  ANGLE.defl='0, 0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30'
-	export function angleList(parameter: any, block: any) {
-        var angle=parameter.ANGLE.code;
-        // return angle;
-        Generator.addCode(`${angle}`)
-	}
-
-
     //% block="Transform to frame [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
     //% TIME.shadow="number" TIME.defl=0.2
@@ -232,23 +223,12 @@ namespace robot{
 	}
 
 
-    //% block="Music note[NOTE] Duration 1/[DUR]" blockType="reporter"
-	//% NOTE.shadow="dropdown"  NOTE.options="NOTE"  NOTE.defl="NOTE.C1"
-	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  DUR.defl=2
-	export function noteDur(parameter: any, block: any) {
-        var note=parameter.NOTE.code;
-        var dur=parameter.DUR.code;
-
-		Generator.addCode(`creatList(${note}, ${dur})`);
-	}
-
-
-    //% block="Music note and duration list [LIST]" blockType="reporter"
-	//% LIST.shadow="list"  LIST.defl='14,4,14,4,21,4,21,4,23,4,23,4,21,2'
-	export function noteDurList(parameter: any, block: any) {
-        var listNoteDur=parameter.LIST.code;
-
-		Generator.addCode(`${listNoteDur}`);
+    //% block="Action frame [ANGLE]" blockType="reporter"
+	//% ANGLE.shadow="list"  ANGLE.defl='0, 0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30'
+	export function angleList(parameter: any, block: any) {
+        var angle=parameter.ANGLE.code;
+        // return angle;
+        Generator.addCode(`${angle}`)
 	}
 
 
@@ -264,6 +244,26 @@ namespace robot{
 	}
 
 
+    //% block="Tone [NOTE] Duration 1/[DUR]" blockType="reporter"
+	//% NOTE.shadow="dropdown"  NOTE.options="NOTE"  NOTE.defl="NOTE.C1"
+	//% DUR.shadow="range"  DUR.params.min=1  DUR.params.max=127  DUR.defl=2
+	export function noteDur(parameter: any, block: any) {
+        var note=parameter.NOTE.code;
+        var dur=parameter.DUR.code;
+
+		Generator.addCode(`creatList(${note}, ${dur})`);
+	}
+
+
+    //% block="Tone and duration list [LIST]" blockType="reporter"
+	//% LIST.shadow="list"  LIST.defl='14,4,14,4,21,4,21,4,23,4,23,4,21,2'
+	export function noteDurList(parameter: any, block: any) {
+        var listNoteDur=parameter.LIST.code;
+
+		Generator.addCode(`${listNoteDur}`);
+	}
+
+
     //% block="Execute the command [CMD] and delay [TIME] seconds" blockType="command"
     //% CMD.shadow="string" CMD.defl="m0 -60 0 60 0 0"
     //% TIME.shadow="number" TIME.defl=0.2
@@ -276,7 +276,18 @@ namespace robot{
     }
 
 
-    //% block="Read the analog value of [ARPIN]" blockType="reporter"
+    //% block="Analog write [AVAL] to [AWPIN]" blockType="command"
+	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN" AWPIN.defl="AWPIN.6"
+    //% AVAL.shadow="range"  AVAL.params.min=1  AVAL.params.max=255  AVAL.defl=120
+	export function writeAnalogValue(parameter: any, block: any) {
+        var pin=parameter.AWPIN.code;
+        var val=parameter.AVAL.code;
+
+		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+	}
+
+
+    //% block="Analog read [ARPIN]" blockType="reporter"
 	//% ARPIN.shadow="dropdown"  ARPIN.options="ARPIN" ARPIN.defl="ARPIN.16"
 	export function readAnalogValue(parameter: any, block: any) {
         var pin=parameter.ARPIN.code;
@@ -285,27 +296,7 @@ namespace robot{
 	}
 
 
-    //% block="Read the digital value of [DPIN]" blockType="reporter"
-	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
-	export function readDigitalValue(parameter: any, block: any) {
-        var pin=parameter.DPIN.code;
-
-		Generator.addCode(`readDigitalValue(${pin})`);
-	}
-
-
-    //% block="Write the analog [AWPIN] to [VAL]" blockType="command"
-	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN" AWPIN.defl="AWPIN.6"
-    //% VAL.shadow="range"  VAL.params.min=1  VAL.params.max=255  VAL.defl=120
-	export function writeAnalogValue(parameter: any, block: any) {
-        var pin=parameter.AWPIN.code;
-        var val=parameter.VAL.code;
-
-		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
-	}
-
-
-    //% block="Write the digital [DPIN] to [DVAL]" blockType="command"
+    //% block="Digital write [DVAL] to [DPIN]" blockType="command"
 	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
     //% DVAL.shadow="dropdown"  DVAL.options="DVAL"  DVAL.defl="DVAL.1"
 	export function writeDigitalValue(parameter: any, block: any) {
@@ -316,12 +307,22 @@ namespace robot{
 	}
 
 
-	//% block="Close serial port" blockType="command"
+    //% block="Digital read [DPIN]" blockType="reporter"
+	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
+	export function readDigitalValue(parameter: any, block: any) {
+        var pin=parameter.DPIN.code;
+
+		Generator.addCode(`readDigitalValue(${pin})`);
+	}
+
+
+	//% block="Close serial port and quit" blockType="command"
     export function closeSerialPort(parameter: any, block: any) {
     
         Generator.addCode(`closePort()`);
         
     }
+
 
 /*
     function replaceQuotationMarks(str:string){
