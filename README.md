@@ -5,8 +5,7 @@
 ---------------------------------------------------------
 
 ## Table of Contents
-
-- [Petoi Robot](#petoi-robot)
+- [Petoi Robot](#petoi-mind-expansion-library)
   - [Table of Contents](#table-of-contents)
   - [URL](#url)
   - [Summary](#summary)
@@ -40,8 +39,15 @@ For Mac, you need to add [these library files](https://github.com/PetoiCamp/Peto
 <img width="612" alt="image" src="https://user-images.githubusercontent.com/9747608/227253384-eb749950-dca0-4240-b096-a2d023ef5405.png">
 
 ## Examples
+![image](https://user-images.githubusercontent.com/15603750/227452494-ff17f662-7f3f-4a98-8a8d-565e27fa83ac.png)
 
-![](./python/_images/example.png)
+![image](https://user-images.githubusercontent.com/15603750/227452808-bb74c72d-90f3-41f3-b954-e610688db1dd.png)
+
+![image](https://user-images.githubusercontent.com/15603750/227452141-a2176887-b6a7-4876-ac6e-4a9f3846de2e.png)
+
+![image](https://user-images.githubusercontent.com/15603750/227451689-b5f6947b-0a59-43be-9aac-7f1c59f5537d.png)
+
+
 
 ## License
 
