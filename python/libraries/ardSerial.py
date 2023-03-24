@@ -578,10 +578,7 @@ def keepCheckingPort(portList,cond1=None,check=True,updateFunc = lambda:None):
             updateFunc()
         allPorts = copy.deepcopy(currentPorts)
 
-def connectPort(PortList):
-    global initialized
-    allPorts = Communication.Print_Used_Com()
-    
+def showSerialPorts(allPorts):
     if platform.system() == 'Linux':
         file = open("/etc/os-release", 'r')
         line = file.readline()
@@ -592,7 +589,19 @@ def connectPort(PortList):
             allPorts.append('/dev/ttyS0')
 
     for index in range(len(allPorts)):
-        logger.info(f"port[{index}] is {allPorts[index]} ")
+        logger.debug(f"port[{index}] is {allPorts[index]} ")
+    print("\n*** Available serial ports: ***")
+    print(*allPorts, sep = "\n")
+    if platform.system() != "Windows":
+        for p in allPorts:
+             if 'cu.usb' in p:
+                print('\n* Manually connect to the following port if it fail to connect automatically\n')
+                print(p.replace('/dev/',''),end='\n\n')
+                
+def connectPort(PortList):
+    global initialized
+    allPorts = Communication.Print_Used_Com()
+    showSerialPorts(allPorts)
 
     if len(allPorts) > 0:
         goodPortCount = 0

@@ -100,14 +100,9 @@ def openPort(port):
     # global com
     # com = Communication(port,115200,timeout=0.002)
     allPorts = Communication.Print_Used_Com()
-    print("\n*** Available serial ports: ***")
-    print(*allPorts, sep = "\n")
-    if platform.system() != "Windows": 
-        print('\n* Enter the following port into the manual connection block if it fail to connect automatically\n')
-        for p in allPorts:
-            if 'cu.usb' in p:
-                print(p.replace('/dev/',''),end='\n\n')
-    
+    showSerialPorts(allPorts)
+    if platform.system() != "Windows" and '/dev' not in port:
+        port = '/dev/' + port
     serialObject = Communication(port, 115200, 1)
     testPort(goodPorts, serialObject, port.split('/')[-1])
     t = 3
@@ -118,7 +113,7 @@ def openPort(port):
 # auto connect serial ports
 def autoConnect():
     connectPort(goodPorts)
-    printH('goodPorts: ', goodPorts)
+    logger.debug(f'goodPorts: {goodPorts}')
 
 '''
 # check if there is a response
