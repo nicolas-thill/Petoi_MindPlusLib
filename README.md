@@ -39,6 +39,9 @@ For Mac, you need to add [these library files](https://github.com/PetoiCamp/Peto
 <img width="612" alt="image" src="https://user-images.githubusercontent.com/9747608/227253384-eb749950-dca0-4240-b096-a2d023ef5405.png">
 
 ## Examples
+The following examples can be found in [examples/](https://github.com/JasonWong08/ext-petoi_robot/tree/main/examples) folder and opened by the Mind+ APP directly.
+
+
 Write the value of digital pin (/examples/WriteDigital.mp)
 
 ![WriteDigital](https://user-images.githubusercontent.com/15603750/227526478-db59b1c9-75d5-4f2c-9d47-65ff5498203d.png)
