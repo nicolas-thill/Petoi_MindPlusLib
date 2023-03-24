@@ -51,7 +51,7 @@ Write the value of analog pin ((/examples/WriteAnalog.mp)
 
 Read the value of analog pin ((/examples/ReadAnalog.mp)
 
-![ReadAnalog](https://user-images.githubusercontent.com/15603750/227526601-cb953ec1-d843-4460-80a7-11584f0fd3ce.png)
+![ReadAnalog](https://user-images.githubusercontent.com/15603750/227543792-83d1527e-219a-4575-97d6-c8aa2447abb7.png)
 
 
 Control the robot's joints and play melody ((/examples/Robot.mp)
