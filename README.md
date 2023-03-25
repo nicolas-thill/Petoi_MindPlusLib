@@ -54,7 +54,7 @@ Write the value of analog pin ((/examples/WriteAnalog.mp)
 ![WriteAnalog](https://user-images.githubusercontent.com/15603750/227687921-b8cef15f-f593-444e-920e-d5e966ad95a6.png)
 
 
-Read the value of analog pin ((/examples/ReadAnalog.mp)
+Read the random value of analog pin and turn it into music tones ((/examples/ReadAnalog.mp)
 
 ![ReadAnalog](https://user-images.githubusercontent.com/15603750/227687944-a27830ed-fba2-404a-87f2-07e17554ad60.png)
 
