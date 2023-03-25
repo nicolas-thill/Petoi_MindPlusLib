@@ -44,17 +44,17 @@ The following examples can be found in [examples/](https://github.com/JasonWong0
 
 Write the value of digital pin (/examples/WriteDigital.mp)
 
-![WriteDigital](https://user-images.githubusercontent.com/15603750/227526478-db59b1c9-75d5-4f2c-9d47-65ff5498203d.png)
+![WriteDigital](https://user-images.githubusercontent.com/15603750/227687911-66d5a7f0-7c1a-48a8-ae1d-e3abb5551027.png)
 
 
 Write the value of analog pin ((/examples/WriteAnalog.mp)
 
-![WriteAnalog](https://user-images.githubusercontent.com/15603750/227526563-9274963d-280b-43c7-8cd0-52945e07fe57.png)
+![WriteAnalog](https://user-images.githubusercontent.com/15603750/227687921-b8cef15f-f593-444e-920e-d5e966ad95a6.png)
 
 
 Read the value of analog pin ((/examples/ReadAnalog.mp)
 
-![ReadAnalog](https://user-images.githubusercontent.com/15603750/227543792-83d1527e-219a-4575-97d6-c8aa2447abb7.png)
+![ReadAnalog](https://user-images.githubusercontent.com/15603750/227687944-a27830ed-fba2-404a-87f2-07e17554ad60.png)
 
 
 Control the robot's joints and play melody ((/examples/Robot.mp)
