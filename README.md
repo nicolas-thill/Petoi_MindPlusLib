@@ -38,6 +38,9 @@ For Mac, you need to add [these library files](https://github.com/PetoiCamp/Peto
 <img width="613" alt="image" src="https://user-images.githubusercontent.com/9747608/227257791-ff42fee8-d4e7-4b9d-9fd1-f13777be15d6.png">
 
 * Before running the program, we recommend you [upgrade your robot to the newest firmware](https://bittle.petoi.com/3-NyBoard-Configuration) for the best compatibility. You will need to use the **GROVE_SERIAL_PASS_THROUGH** mode to access the IO pins.
+ 
+<img width="613" alt="image" src="https://user-images.githubusercontent.com/9747608/227701778-c60b5e7e-bee9-474c-bc70-ed91c95773f9.png">
+
 
 <img width="900" alt="image" src="https://user-images.githubusercontent.com/9747608/227698055-bc776753-745f-43d1-b8c8-46347df969e8.png">
 
