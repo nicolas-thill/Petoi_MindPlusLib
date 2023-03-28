@@ -203,7 +203,7 @@ def sendLongCmd(token, var, delayTime):
 # get analog value of a pin
 def readAnalogValue(pin):
     token = 'R'
-    task = [token, [97, pin], 0.1]
+    task = [token, [97, pin], 0]
 
     # p = getPortList()
     # rawData = sendTask(goodPorts, p[0], task)
@@ -223,7 +223,7 @@ def readAnalogValue(pin):
 # get digital value of a pin
 def readDigitalValue(pin):
     token = 'R'
-    task = [token, [100, pin], 0.1]
+    task = [token, [100, pin], 0]
 
     # p = getPortList()
     # rawData = sendTask(goodPorts, p[0], task)
@@ -244,7 +244,7 @@ def readDigitalValue(pin):
 # set analog value of a pin
 def writeAnalogValue(pin, val):
     token = 'W'
-    task = [token, [97, pin, val], 0.1]
+    task = [token, [97, pin, val], 0]
 
     rawData = send(goodPorts, task)
 
@@ -252,7 +252,7 @@ def writeAnalogValue(pin, val):
 # set digital value of a pin
 def writeDigitalValue(pin, val):
     token = 'W'
-    task = [token, [100, pin, val], 0.1]
+    task = [token, [100, pin, val], 0]
 
     rawData = send(goodPorts, task)
 

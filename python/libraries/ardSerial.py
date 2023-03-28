@@ -10,13 +10,16 @@ import platform
 import copy
 import threading
 import os
-# import var 
-# import tkinter as tk
-# sys.path.append("../pyUI")
-# from translate import *
-# language = languageList['English']
-# def txt(key):
-#     return language.get(key, textEN[key])
+import config
+
+if not config.useMindPlus:
+    import tkinter as tk
+    sys.path.append("../pyUI")
+    from translate import *
+    language = languageList['English']
+    def txt(key):
+        return language.get(key, textEN[key])
+
 FORMAT = '%(asctime)-15s %(name)s - %(levelname)s - %(message)s'
 '''
 Level: The level determines the minimum priority level of messages to log. 
@@ -32,7 +35,6 @@ which means that the logging module will automatically filter out any DEBUG mess
 # logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 logger = logging.getLogger(__name__)
-#global model_
 
 
 def printH(head, value):
@@ -156,7 +158,7 @@ def printSerialMessage(port, token, timeout=0):
     if token == 'k' or token == 'K':
         threshold = 4
     else:
-        threshold = 1
+        threshold = 3
     #    if token == 'K':
     #        timeout = 1
     startTime = time.time()
@@ -493,13 +495,13 @@ def testPort(PortList, serialObject, p):
             print(result)
             if result != -1:
                 printH('Adding', p)
-                # for r in result:
-                #     if 'Bittle' in r:
-                #         var.model_ = 'Bittle'
-                #         break
-                #     elif 'Nybble' in r:
-                #         var.model_ = 'Nybble'
-                #         break
+                for r in result:
+                    if 'Bittle' in r:
+                        config.model_ = 'Bittle'
+                        break
+                    elif 'Nybble' in r:
+                        config.model_ = 'Nybble'
+                        break
                 PortList.update({serialObject: p})
                 goodPortCount += 1
             else:
@@ -596,7 +598,11 @@ def showSerialPorts(allPorts):
         for p in allPorts:
              if 'cu.usb' in p:
                 print('\n* Manually connect to the following port if it fail to connect automatically\n')
-                print(p.replace('/dev/',''),end='\n\n')
+                if config.useMindPlus:
+                    print(p.replace('/dev/',''),end='\n\n')
+                else:
+                    print(p, end='\n\n')
+
                 
 def connectPort(PortList):
     global initialized
@@ -608,9 +614,10 @@ def connectPort(PortList):
         checkPortList(PortList,allPorts)
     initialized = True
     if len(PortList) == 0:
-        print('No port found! Please make sure the serial port is found first on the computer side.')
-        # print('Replug mode')
-        # replug(PortList)
+        print('No port found! Please make sure the serial port can be recognized by the computer first.')
+        if not config.useMindPlus:
+            print('Replug mode')
+            replug(PortList)
     else:
         logger.info(f"Connect to serial port:")
         for p in PortList:
@@ -674,7 +681,7 @@ def replug(PortList):
                         serialObject = Communication(p, 115200, 1)
                         PortList.update({serialObject: p.split('/')[-1]})
                         goodPortCount += 1
-                        var.model_ = 'Bittle'
+                        config.model_ = 'Bittle'
                         logger.info(f"Connected to serial port: {p}")
                         success = True
                     except Exception as e:
@@ -719,7 +726,7 @@ def selectList(PortList,ls,win):
             PortList.update({serialObject: p.split('/')[-1]})
             goodPortCount += 1
             logger.info(f"Connected to serial port: {p}")
-            var.model_ = 'Bittle' #default value
+            config.model_ = 'Bittle' #default value
             
             tk.messagebox.showwarning(title='Warning', message=txt('Need to manually select the model type (Nybble/Bittle)'))
             win.destroy()

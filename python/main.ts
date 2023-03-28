@@ -251,7 +251,7 @@ namespace robot{
 
     //% block="Analog write [AVAL] to [AWPIN]" blockType="command"
 	//% AWPIN.shadow="dropdown"  AWPIN.options="AWPIN"
-    //% AVAL.shadow="range"  AVAL.params.min=1  AVAL.params.max=255  AVAL.defl=120
+    //% AVAL.shadow="range"  AVAL.params.min=0  AVAL.params.max=255  AVAL.defl=120
 	export function writeAnalogValue(parameter: any, block: any) {
         var pin=parameter.AWPIN.code;
         var val=parameter.AVAL.code;
