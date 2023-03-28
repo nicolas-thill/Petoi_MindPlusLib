@@ -48,25 +48,39 @@ For Mac, you need to add [these library files](https://github.com/PetoiCamp/Peto
 ## Examples
 The following examples can be found in [examples/](https://github.com/JasonWong08/ext-petoi_robot/tree/main/examples) folder and opened by the Mind+ APP directly.
 
+Play melody (/examples/PlayMelody.mp)
+
+![PlayMelody](https://user-images.githubusercontent.com/15603750/228172247-f12aafe9-7187-4717-a1be-107a4a56f2c1.png)
+
+
+Execute skills (/examples/ExecuteSkills.mp)
+
+![ExecuteSkills](https://user-images.githubusercontent.com/15603750/228173463-0b30986d-6a4c-4d8e-be68-4b881dc51953.png)
+
+
+Turn around (/examples/TurnAround.mp)
+
+![TurnAround](https://user-images.githubusercontent.com/15603750/228174412-81008304-0352-477a-8a03-a43560927139.png)
+
 
 Write the value of digital pin (/examples/WriteDigital.mp)
 
-![WriteDigital](https://user-images.githubusercontent.com/15603750/227687911-66d5a7f0-7c1a-48a8-ae1d-e3abb5551027.png)
+![WriteDigital](https://user-images.githubusercontent.com/15603750/228175321-eba6484f-6643-4e22-8c4c-d470e2423217.png)
 
 
 Write the value of analog pin ((/examples/WriteAnalog.mp)
 
-![WriteAnalog](https://user-images.githubusercontent.com/15603750/227687921-b8cef15f-f593-444e-920e-d5e966ad95a6.png)
+![WriteAnalog](https://user-images.githubusercontent.com/15603750/228176252-088885a7-6f42-4f61-8d1a-b6697106d945.png)
 
 
 Read the random values of analog pin and turn them into music tones ((/examples/ReadAnalog.mp)
 
-![ReadAnalog](https://user-images.githubusercontent.com/15603750/227687944-a27830ed-fba2-404a-87f2-07e17554ad60.png)
+![ReadAnalog](https://user-images.githubusercontent.com/15603750/228176846-758c68ab-11e0-4f6d-944d-543aaf068b53.png)
 
 
 Control the robot's joints and play melody ((/examples/Robot.mp)
 
-![Robot](https://user-images.githubusercontent.com/15603750/227526628-9ccac052-bf86-4012-889a-d6fefea26ce6.png)
+![Robot](https://user-images.githubusercontent.com/15603750/228177210-a76f390d-262b-4bb5-8e22-54e2129ce1a8.png)
 
 
 ## License
