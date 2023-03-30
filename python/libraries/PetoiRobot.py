@@ -9,12 +9,6 @@ import time
 import re
 
 
-currentAng = [0, 0, 0, 0,
-              0, 0, 0, 0,
-              0, 0, 0, 0,
-              0, 0, 0, 0]
-
-
 # use to print debug information
 def printH(head, value):
     print(head, end=' ')
@@ -38,8 +32,9 @@ def deacGyro():
         # printH("gyro status:",res )
         logger.debug(f'gyro status:{res}')
 
-def getCurAng(index):
-    global currentAng
+
+def getAngleList():
+    # global currentAng
     token = 'j'
     task = [token, 0]
     # in_str = token + '\n'
@@ -53,32 +48,61 @@ def getCurAng(index):
     p = re.compile(r'^(.*),',re.MULTILINE)
     for one in p.findall(rawData[1]):
         angle = re.sub('\t','',one)
-    angleList = angle.split(',')
+    strAngleList = angle.split(',')
+    logger.debug(f'strAngleList={strAngleList}')
+    angleList = list(map(lambda x:int(x),strAngleList)) #angle value have to be integer
     logger.debug(f'angleList={angleList}')
-    currentAng = list(map(lambda x:int(x),angleList)) #angle value have to be integer
-    logger.debug(f'currentAng={currentAng}')
-    return currentAng[index]
+    return angleList
+
+def getCurAng(index):
+    currentList = getAngleList()
+    return currentList[index]
 
 
-# creat a list
-def creatList(num1, num2):
-    newList = []
-    newList.append(num1)
-    newList.append(num2)
-    return newList
+# creat an absolut value list
+def absValList(num1, num2):
+    return [num1, num2]
 
 
 # rotate angle from relative value to absolute value
-def relative2abs(index, symbol, angle):
+# creat a offset value list
+def relativeValList(index, symbol, angle):
     newList = []
-    curAngle = getCurAng(index)
-    absAngle = curAngle + int(symbol) * angle
-    absAngle = min(125,max(-125,absAngle))
-    logger.debug(f'absAngle={absAngle}')
+    relative = int(symbol) * angle
+    if int(symbol) == 1:
+        relative = '+' + str(angle)
+    else:
+        relative = '-' + str(angle)
+    logger.debug(f'relative={relative}')
     newList.append(index)
-    newList.append(absAngle)
+    newList.append(relative)
+    # curAngle = getCurAng(index)
+    # absAngle = curAngle + int(symbol) * angle
+    # absAngle = min(125,max(-125,absAngle))
+    # logger.debug(f'absAngle={absAngle}')
+    # newList.append(index)
+    # newList.append(absAngle)
     return newList
 
+def rotateJoints(token, var, delayTime):
+    currentAngleList = getAngleList()
+    newList = []
+
+    step = 2
+    indexAngle = [var[i:i+step] for i in range(0, len(var), step)]
+    for iA in indexAngle:
+        if isinstance(iA[1], int):
+            currentAngleList[iA[0]] = iA[1]
+        elif isinstance(iA[1], str):
+            if iA[1][0] == '+':
+                currentAngleList[iA[0]] += int(iA[1][1:])
+            elif iA[1][0] == '-':
+                currentAngleList[iA[0]] -= int(iA[1][1:])
+            currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
+        newList += [iA[0], currentAngleList[iA[0]]]
+    sendLongCmd(token, newList, delayTime)
+
+            
 '''
 # combine the list
 def combineList(list1, list2):

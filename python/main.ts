@@ -127,7 +127,7 @@ namespace robot{
         var t=parameter.TIME.code;
 
         Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
-        Generator.addCode(`sendLongCmd('M', ${iaList}, ${t})`);
+        Generator.addCode(`rotateJoints('M', ${iaList}, ${t})`);
 	}
 	
 	//% block="Turn simultaneously [LIST] and delay [TIME] seconds" blockType="command"
@@ -138,7 +138,7 @@ namespace robot{
         var t=parameter.TIME.code;
 
         Generator.addCode(`# The list format is [joint index, angle, joint index, angle...]`)
-        Generator.addCode(`sendLongCmd('I', ${iaList}, ${t})`);
+        Generator.addCode(`rotateJoints('I', ${iaList}, ${t})`);
 	}
 
 	
@@ -149,7 +149,7 @@ namespace robot{
         var index=parameter.INDEX.code;
         var angle=parameter.ANGLE.code;
 
-		Generator.addCode(`creatList(${index}, ${angle})`);
+		Generator.addCode(`absValList(${index}, ${angle})`);
 	}
 
 
@@ -162,7 +162,7 @@ namespace robot{
         var symbol=parameter.DIRECTION.code;
         var angle=parameter.ANGLE.code;
 
-		Generator.addCode(`relative2abs(${index}, ${symbol}, ${angle})`);
+		Generator.addCode(`relativeValList(${index}, ${symbol}, ${angle})`);
 	}
 
 
@@ -224,7 +224,7 @@ namespace robot{
         var note=parameter.NOTE.code;
         var dur=parameter.DUR.code;
 
-		Generator.addCode(`creatList(${note}, ${dur})`);
+		Generator.addCode(`absValList(${note}, ${dur})`);
 	}
 
 
