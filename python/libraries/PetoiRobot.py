@@ -14,6 +14,7 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
+
 '''
 def getPortList():
     if isinstance(goodPorts, dict):
@@ -23,6 +24,8 @@ def getPortList():
     return p
 '''
 
+
+# deactivate the gyro
 def deacGyro():
     res = send(goodPorts, ['G', 0])
     # printH("gyro status:",res )
@@ -33,8 +36,8 @@ def deacGyro():
         logger.debug(f'gyro status:{res}')
 
 
+# get the current angle list of all joints
 def getAngleList():
-    # global currentAng
     token = 'j'
     task = [token, 0]
     # in_str = token + '\n'
@@ -54,55 +57,86 @@ def getAngleList():
     logger.debug(f'angleList={angleList}')
     return angleList
 
+
+# get the current angle value of a joint 
+def getAngle(index):
+    token = 'j' 
+    task = [token, [index], 0]
+    rawData = send(goodPorts, task)
+    if rawData!=-1:
+        logger.debug(f'rawData={rawData}')
+        # result = rawData[1][:-2]
+        result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
+        # printH("result is: ",result)
+        if  "=" in result:
+            try:
+                value = int(result[1:])
+                # printH("value is: ",value)
+                return value
+            except Exception as e:
+                print('* No angle value got!')
+                raise e
+
+
 def getCurAng(index):
-    currentList = getAngleList()
-    return currentList[index]
+    currentVal = getAngle(index)
+    return currentVal
 
 
 # creat an absolut value list
 def absValList(num1, num2):
-    return [num1, num2]
+    return [(num1, num2)]
 
 
 # rotate angle from relative value to absolute value
 # creat a offset value list
 def relativeValList(index, symbol, angle):
-    newList = []
-    relative = int(symbol) * angle
-    if int(symbol) == 1:
-        relative = '+' + str(angle)
-    else:
-        relative = '-' + str(angle)
-    logger.debug(f'relative={relative}')
-    newList.append(index)
-    newList.append(relative)
+    # newList = []
+    # relative = int(symbol) * angle
+    # if int(symbol) == 1:
+    #     relative = '+' + str(angle)
+    # else:
+    #     relative = '-' + str(angle)
+    # logger.debug(f'relative={relative}')
+    # newList.append(index)
+    # newList.append(relative)
     # curAngle = getCurAng(index)
     # absAngle = curAngle + int(symbol) * angle
     # absAngle = min(125,max(-125,absAngle))
     # logger.debug(f'absAngle={absAngle}')
     # newList.append(index)
     # newList.append(absAngle)
-    return newList
+    # return newList
+    # printH("type:", isinstance(symbol, str))
+    return [(index, int(symbol), angle)]
 
+
+# rotate the joints sequentially or simultaneously
 def rotateJoints(token, var, delayTime):
     currentAngleList = getAngleList()
     newList = []
 
-    step = 2
-    indexAngle = [var[i:i+step] for i in range(0, len(var), step)]
-    for iA in indexAngle:
-        if isinstance(iA[1], int):
+    for iA in var:
+        if len(iA)==2:
             currentAngleList[iA[0]] = iA[1]
-        elif isinstance(iA[1], str):
-            if iA[1][0] == '+':
-                currentAngleList[iA[0]] += int(iA[1][1:])
-            elif iA[1][0] == '-':
-                currentAngleList[iA[0]] -= int(iA[1][1:])
+        elif len(iA)==3:
+            currentAngleList[iA[0]] += iA[1]*iA[2]
             currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
         newList += [iA[0], currentAngleList[iA[0]]]
     sendLongCmd(token, newList, delayTime)
 
-            
+
+# play tones
+def play(token, var, delayTime):
+    if isinstance(var[0], tuple):
+        newList = []
+        for iA in var:
+            newList += [iA[0], iA[1]]
+        sendLongCmd(token, newList, delayTime)
+    elif isinstance(var[0], int):
+        sendLongCmd(token, var, delayTime)
+
+
 '''
 # combine the list
 def combineList(list1, list2):
@@ -118,10 +152,9 @@ def encode(in_str, encoding='utf-8'):
     else:
         return in_str.encode(encoding)
 
-# com = None
+
 # open the serial port 
 def openPort(port):
-    # global com
     # com = Communication(port,115200,timeout=0.002)
     allPorts = Communication.Print_Used_Com()
     showSerialPorts(allPorts)
@@ -175,6 +208,7 @@ def checkResponse(tk, timeout=0):
             return -1
         time.sleep(0.001)
 '''
+
 
 # send a short skill string
 def sendSkillStr(skillStr, delayTime):
@@ -236,10 +270,15 @@ def readAnalogValue(pin):
         logger.debug(f'rawData={rawData}')
         # result = rawData[1][:-2]
         result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
-        if  "Got " in result:  
-            # printH('###',result.split())
-            # printH("result is: ",result.split()[1])
-            return int(result.split()[1])
+        # printH("result is: ",result)
+        if  "=" in result:  
+            try:
+                value = int(result[1:])
+                # printH("value is: ",value)
+                return value
+            except Exception as e:
+                print('* No analog value got!')
+                raise e
     else:
         return -1
 
@@ -256,11 +295,15 @@ def readDigitalValue(pin):
         logger.debug(f'rawData={rawData}')
         # result = rawData[1][:-2]
         result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
-        if  "Got " in result:  
-            # printH('###',result.split())
-            # print("result is ")
-            # print(result.split()[1])
-            return int(result.split()[1])
+        # printH("result is: ",result)
+        if  "=" in result:
+            try:
+                value = int(result[1:])
+                # printH("value is: ",value)
+                return value
+            except Exception as e:
+                print('* No digital value got!')
+                raise e
     else:
         return -1
 

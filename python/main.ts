@@ -213,7 +213,7 @@ namespace robot{
         var t=parameter.TIME.code;
 
         Generator.addCode(`# The list format is [note, duration, note, duration...]`)
-        Generator.addCode(`sendLongCmd('B', ${noteDurList}, ${t})`);
+        Generator.addCode(`play('B', ${noteDurList}, ${t})`);
 	}
 
 
