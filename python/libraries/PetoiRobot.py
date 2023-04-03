@@ -117,24 +117,28 @@ def rotateJoints(token, var, delayTime):
     newList = []
 
     for iA in var:
-        if len(iA)==2:
-            currentAngleList[iA[0]] = iA[1]
-        elif len(iA)==3:
-            currentAngleList[iA[0]] += iA[1]*iA[2]
-            currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
-        newList += [iA[0], currentAngleList[iA[0]]]
+        if isinstance(iA, int):
+            newList += [iA]
+        elif isinstance(iA, tuple):
+            if len(iA)==2:
+                currentAngleList[iA[0]] = iA[1]
+            elif len(iA)==3:
+                currentAngleList[iA[0]] += iA[1]*iA[2]
+                currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
+            newList += [iA[0], currentAngleList[iA[0]]]
     sendLongCmd(token, newList, delayTime)
 
 
 # play tones
 def play(token, var, delayTime):
-    if isinstance(var[0], tuple):
-        newList = []
-        for iA in var:
+    newList = []
+
+    for iA in var:
+        if isinstance(iA, int):
+            newList += [iA]
+        elif isinstance(iA, tuple):
             newList += [iA[0], iA[1]]
-        sendLongCmd(token, newList, delayTime)
-    elif isinstance(var[0], int):
-        sendLongCmd(token, var, delayTime)
+    sendLongCmd(token, newList, delayTime)
 
 
 '''
