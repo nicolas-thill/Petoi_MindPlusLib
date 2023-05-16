@@ -17,8 +17,8 @@
     "robot.executeCmd|block": "执行命令[CMD]后延时[TIME]秒",
     "robot.readAnalogValue|block": "读模拟脚[ARPIN]",
     "robot.readDigitalValue|block": "读数字脚[DPIN]",
-    "robot.writeAnalogValue|block": "写[AVAL]到模拟脚[AWPIN]",
-    "robot.writeDigitalValue|block": "写[DVAL]到数字脚[DPIN]",
+    "robot.writeAnalogValue|block": "写模拟值[AVAL]到引脚[AWPIN]",
+    "robot.writeDigitalValue|block": "写数字值[DVAL]到引脚[DPIN]",
     "robot.closeSerialPort|block": "关闭串口并退出",
 
     "robot.SKILL.sit|menu": "坐下",
