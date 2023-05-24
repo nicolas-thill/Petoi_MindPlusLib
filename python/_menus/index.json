@@ -8,9 +8,9 @@
 
     "AWPIN": {
         "menu": [["D6", "6"],
-        ["D3", "3"],    // NyBoard V1_2 LED pin
+        ["D3", "3"],
         ["D9", "9"],
-        ["D10", "10"],  // NyBoard V1_1 LED pin
+        ["D10", "10"],
         ["Buzzer", "5"]],
         "default_writeAnalogValue_AWPIN":"6"
     },

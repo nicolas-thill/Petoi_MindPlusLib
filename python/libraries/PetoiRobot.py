@@ -267,22 +267,23 @@ def readAnalogValue(pin):
     token = 'R'
     task = [token, [97, pin], 0]
 
-    # p = getPortList()
-    # rawData = sendTask(goodPorts, p[0], task)
     rawData = send(goodPorts, task)
     if rawData!=-1:
         logger.debug(f'rawData={rawData}')
         # result = rawData[1][:-2]
         result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
         # printH("result is: ",result)
-        if  "=" in result:  
+        if "=" in result:
+            index = result.find("=") + 1
             try:
-                value = int(result[1:])
+                value = int(result[index:])
                 # printH("value is: ",value)
-                return value
             except Exception as e:
                 print('* No analog value got!')
                 raise e
+        else:
+            value = -1
+        return value
     else:
         return -1
 
