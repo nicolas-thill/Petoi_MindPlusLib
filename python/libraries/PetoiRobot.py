@@ -14,6 +14,7 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
+printH("Mind+ date: ", "Jun 6, 2023")
 
 '''
 def getPortList():
@@ -327,7 +328,6 @@ def writeDigitalValue(pin, val):
     task = [token, [100, pin, val], 0]
 
     rawData = send(goodPorts, task)
-
 
 
 # # initialize a list

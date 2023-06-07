@@ -3,6 +3,7 @@
     "robot.openSerialPort|block": "打开串口[PORT]",
     "robot.deacGyro|block": "关闭陀螺仪",
     "robot.executeSkill|block": "执行技能[SKILL]后延时[TIME]秒",
+    "robot.callLastSkill|block": "执行技能创作坊导出的技能后延时[TIME]秒",
     "robot.getJointAngle|block": "获取[INDEX]角度",
     "robot.jointAngle|block": "[INDEX]到[ANGLE]度",
     "robot.jointRelativeAngle|block": "[INDEX][DIRECTION][ANGLE]度",
@@ -16,9 +17,9 @@
     "robot.playMelody|block": "播放旋律[LIST]后延时[TIME]秒",
     "robot.executeCmd|block": "执行命令[CMD]后延时[TIME]秒",
     "robot.readAnalogValue|block": "读模拟脚[ARPIN]",
-    "robot.readDigitalValue|block": "读数字脚[DPIN]",
+    "robot.readDigitalValue|block": "读数字脚[DRPIN]",
     "robot.writeAnalogValue|block": "写模拟值[AVAL]到引脚[AWPIN]",
-    "robot.writeDigitalValue|block": "写数字值[DVAL]到引脚[DPIN]",
+    "robot.writeDigitalValue|block": "写数字值[DVAL]到引脚[DWPIN]",
     "robot.closeSerialPort|block": "关闭串口并退出",
 
     "robot.SKILL.sit|menu": "坐下",
@@ -72,9 +73,9 @@
     "robot.INDEX.RB knee|menu": "右后膝",
     "robot.INDEX.LB knee|menu": "左后膝",
 
-    "robot.ARPIN.Battery|menu": "电池",
+    "robot.ARPIN.NyBoard Battery|menu": "NyBoard 电池",
 
-    "robot.AWPIN.Buzzer|menu": "蜂鸣器",
+    "robot.AWPIN.NyBoard Buzzer|menu": "NyBoard 蜂鸣器",
 
     "robot.DVAL.LOW|menu": "低",
     "robot.DVAL.HIGH|menu": "高"

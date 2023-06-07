@@ -5,20 +5,49 @@ enum DIRECTION {
     "-1",
 }
 
-enum DPIN {
-    //% block="D6"
+enum DRPIN {
+    //% block="NyBoard D6"
     6,
-    //% block="D7"
+    //% block="NyBoard D7"
     7,
-    //% block="D8"
+    //% block="NyBoard D8"
     8,
-    //% block="D9"
+    //% block="NyBoard D9"
     9,
-    //% block="D10"
+    //% block="NyBoard D10"
     10,
-    //% block="A2"
+    //% block="NyBoard A2"
     16,
-    //% block="A3"
+    //% block="NyBoard A3"
+    17,
+    //% block="BiBoard 34"
+    34,
+    //% block="BiBoard 35"
+    35,
+    //% block="BiBoard 36"
+    36,
+    //% block="BiBoard 39"
+    39,
+}
+
+enum DWPIN {
+    //% block="NyBoard D6"
+    6,
+    //% block="NyBoard D7"
+    7,
+    //% block="NyBoard D8"
+    8,
+    //% block="NyBoard D9"
+    9,
+    //% block="NyBoard D10"
+    10,
+    //% block="NyBoard A2"
+    16,
+    //% block="NyBoard A3"
+    17,
+    //% block="BiBoard 16"
+    16,
+    //% block="BiBoard 17"
     17,
 }
 
@@ -108,7 +137,7 @@ namespace robot{
     }
 	
 	
-	//% block="Execute the skill [SKILL] and delay [TIME] seconds" blockType="command"
+	//% block="Perform skill [SKILL] and delay [TIME] seconds" blockType="command"
     //% SKILL.shadow="dropdown"  SKILL.options="SKILL"
     //% TIME.shadow="number" TIME.defl=0.2
     export function executeSkill(parameter: any, block: any) {
@@ -116,7 +145,16 @@ namespace robot{
         var t=parameter.TIME.code;
 
         Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
-    }  
+    }
+
+
+    //% block="Perform the skill exported from Skill Composer and delay [TIME] seconds" blockType="command"
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function callLastSkill(parameter: any, block: any) {
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`sendCmdStr('T', ${t})`);
+    } 
 	
 
     //% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
@@ -213,7 +251,7 @@ namespace robot{
         var t=parameter.TIME.code;
 
         Generator.addCode(`# The list format is [note, duration, note, duration...]`)
-        Generator.addCode(`play('B', ${noteDurList}, ${t})`);
+        Generator.addCode(`play('b', ${noteDurList}, ${t})`);
 	}
 
 
@@ -269,21 +307,21 @@ namespace robot{
 	}
 
 
-    //% block="Digital write [DVAL] to [DPIN]" blockType="command"
-	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
+    //% block="Digital write [DVAL] to [DWPIN]" blockType="command"
+	//% DWPIN.shadow="dropdown"  DWPIN.options="DWPIN"  DWPIN.defl="DWPIN.6"
     //% DVAL.shadow="dropdown"  DVAL.options="DVAL"
 	export function writeDigitalValue(parameter: any, block: any) {
-        var pin=parameter.DPIN.code;
+        var pin=parameter.DWPIN.code;
         var val=parameter.DVAL.code;
 
 		Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
 	}
 
 
-    //% block="Digital read [DPIN]" blockType="reporter"
-	//% DPIN.shadow="dropdown"  DPIN.options="DPIN"  DPIN.defl="DPIN.6"
+    //% block="Digital read [DRPIN]" blockType="reporter"
+	//% DRPIN.shadow="dropdown"  DRPIN.options="DRPIN"  DRPIN.defl="DRPIN.6"
 	export function readDigitalValue(parameter: any, block: any) {
-        var pin=parameter.DPIN.code;
+        var pin=parameter.DRPIN.code;
 
 		Generator.addCode(`readDigitalValue(${pin})`);
 	}
