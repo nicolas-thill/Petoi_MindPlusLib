@@ -175,12 +175,13 @@ def printSerialMessage(port, token, timeout=0):
                 if responseTrim[0].lower() == token.lower():
                     return [response, allPrints]
                 else:
-                    print(response, flush=True)
+                    # print(response, flush=True)
                     allPrints += response
         now = time.time()
         if (now - startTime) > threshold:
-            print('Elapsed time: ', end='')
-            print(threshold, end=' seconds\n', flush=True)
+            # print('Elapsed time: ', end='')
+            # print(threshold, end=' seconds\n', flush=True)
+            logger.debug(f"Elapsed time: {threshold} seconds")
             threshold += 2
             if threshold > 5:
                 return -1
@@ -282,13 +283,13 @@ def send(port, task, timeout=0):
         p = port
     queue = splitTaskForLargeAngles(task)
     for task in queue:
-        printH("task",task)
+        # printH("task",task)
         if len(port) > 1:
             returnResult = sendTaskParallel(p, task, timeout)
         elif len(port) == 1:
             returnResult = sendTask(goodPorts, p[0], task, timeout)
         else:
-            #            print('no ports')
+            # print('no ports')
             return -1
     return returnResult
 

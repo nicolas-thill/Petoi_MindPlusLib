@@ -14,8 +14,6 @@ enum DRPIN {
     8,
     //% block="NyBoard D9"
     9,
-    //% block="NyBoard D10"
-    10,
     //% block="NyBoard A2"
     16,
     //% block="NyBoard A3"
@@ -31,6 +29,10 @@ enum DRPIN {
 }
 
 enum DWPIN {
+    //% block="NyBoard V1_2 LED"
+    3,
+    //% block="NyBoard Buzzer"
+    5,
     //% block="NyBoard D6"
     6,
     //% block="NyBoard D7"
@@ -39,7 +41,7 @@ enum DWPIN {
     8,
     //% block="NyBoard D9"
     9,
-    //% block="NyBoard D10"
+    //% block="NyBoard V1_1 LED"
     10,
     //% block="NyBoard A2"
     16,

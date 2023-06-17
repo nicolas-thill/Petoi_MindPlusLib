@@ -1,17 +1,17 @@
 {
     "ARPIN": {
-        "menu": [["A2", "16"],
-        ["A3", "17"],
-        ["Battery", "7"]],
+        "menu": [["NyBoard A2", "16"],
+        ["NyBoard A3", "17"],
+        ["NyBoard Battery", "7"]],
         "default_readAnalogValue_ARPIN":"16"
     },
 
     "AWPIN": {
-        "menu": [["D6", "6"],
-        ["D3", "3"],
-        ["D9", "9"],
-        ["D10", "10"],
-        ["Buzzer", "5"]],
+        "menu": [["NyBoard D6", "6"],
+        ["NyBoard V1_2 LED", "3"],
+        ["NyBoard D9", "9"],
+        ["NyBoard V1_1 LED", "10"],
+        ["NyBoard Buzzer", "5"]],
         "default_writeAnalogValue_AWPIN":"6"
     },
 
