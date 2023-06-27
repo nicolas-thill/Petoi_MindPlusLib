@@ -11,7 +11,8 @@
         ["NyBoard V1_2 LED", "3"],
         ["NyBoard D9", "9"],
         ["NyBoard V1_1 LED", "10"],
-        ["NyBoard Buzzer", "5"]],
+        ["NyBoard Buzzer", "5"],
+        ["BiBoard Buzzer", "25"]],
         "default_writeAnalogValue_AWPIN":"6"
     },
 
