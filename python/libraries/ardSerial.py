@@ -102,8 +102,9 @@ def serialWriteNumToByte(port, token, var=None):  # Only to be used for c m u b 
                 if token == 'B':
                     for l in range(len(message)//2):
                         message[l*2+1]*=1   #8  #change 1 to 8 to save time for tests
-                        print(message[l*2],end=",")
-                        print(message[l*2+1],end=",")
+                        # print(message[l*2],end=",")
+                        # print(message[l*2+1],end=",")
+                        logger.debug(f"{message[l*2]},{message[l*2+1]}")
             if token == 'W' or token == 'C':
                 in_str = struct.pack('B' * len(message), *message)
             else:
