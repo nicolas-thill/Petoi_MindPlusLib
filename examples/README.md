@@ -1,5 +1,7 @@
 # Instruction
 
+We recommend you upload the [Mind+ mode](https://docs.petoi.com/graphical-programming-interface/petoi-coding-blocks#prepare-petoi-robot) to the NyBoard to test these examples. 
+
 After installing the Mind+ application, you can double-click the example file to open it. 
 
 If the format (\*.mp or \*.sb3) is not correctly associated with the app, you can also open it through Project -> Load Project menu in Mind+. 
