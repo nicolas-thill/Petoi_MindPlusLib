@@ -1,5 +1,7 @@
 # Instruction
 
-After installing the Mind+ application, you can double click the example file to open it. 
+After installing the Mind+ application, you can double-click the example file to open it. 
 
-If the format (\*.mp or \*.sb3) is not correctly associated with the app, you can also open it by the Project -> Load Project menu in Mind+. 
+If the format (\*.mp or \*.sb3) is not correctly associated with the app, you can also open it through Project -> Load Project menu in Mind+. 
+<img width="1069" alt="load" src="https://github.com/PetoiCamp/Petoi_MindPlusLib/assets/9747608/4433ae91-015e-4a6b-95d3-3c246a01a72d">
+
