@@ -32,7 +32,7 @@ Input the project URL: **https://github.com/PetoiCamp/Petoi_MindPlusLib** in the
 <img width="613" alt="image" src="https://user-images.githubusercontent.com/9747608/227698081-96999540-9196-46da-b4ba-62fbb5087b30.png">
 
 
-For macOS (<=V1.7.2 RC3.0), you need to download [PetoiRobot.zip](https://github.com/PetoiCamp/Petoi_MindPlusLib/raw/main/PetoiRobot.zip) first, and copy the extracted folder (**PetoiRobot**) to
+For macOS, if your Mind+ version is <=V1.7.2 RC3.0, you need to download [PetoiRobot.zip](https://github.com/PetoiCamp/Petoi_MindPlusLib/raw/main/PetoiRobot.zip) first, and copy the extracted folder (**PetoiRobot**) to
  **/Users/{your username}/Documents/mindplus-py/environment/Python3.6.5-64/lib/python3.6/site-packages/**
 
 * Before running the program, we recommend you [upgrade your robot to the newest firmware](https://bittle.petoi.com/3-NyBoard-Configuration) for the best compatibility. The standard firmware should support most of the coding blocks. However, you will need to use the **GROVE_SERIAL_PASS_THROUGH** mode to access the IO pins.
