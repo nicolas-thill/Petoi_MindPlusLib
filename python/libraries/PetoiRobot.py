@@ -7,7 +7,19 @@ from SerialCommunication import *
 import struct
 import time
 import re
+import platform
+import os
 
+if platform.system() == "Windows":    # for Windows
+    seperation = '\\'
+    homeDri = os.getenv('HOMEDRIVE') 
+    homePath = os.getenv('HomePath') 
+    configDir = homeDri + homePath
+else:  # for Linux & macOS
+    seperation = '/'
+    home = os.getenv('HOME') 
+    configDir = home 
+configDir = configDir + seperation +'.config' + seperation +'Petoi'
 
 # use to print debug information
 def printH(head, value):
@@ -224,7 +236,41 @@ def sendSkillStr(skillStr, delayTime):
     # time.sleep(delayTime)
     logger.debug(f'skillStr={skillStr}')
     send(goodPorts, [skillStr,delayTime])
-    
+
+# perform a skill exported from the Skill Composer
+# the file directory is: "/$HOME/.config/Petoi/xxx.md" for Linux and macOS
+# the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\xxx.md" for Windows
+def loadSkill(fileName, delayTime):
+    # get the path of the exported skill file
+    skillFilePath = configDir + seperation + fileName +'.md'
+    logger.debug(f'skillFilePath:{skillFilePath}')
+
+    # open the skill file
+    with open(skillFilePath,"r",encoding='utf-8') as f:
+        line = f.readline()  # get the whole line content
+        while line:
+            #key words
+            if ("# Token") in line:
+                # get the token
+                line = next(f) #get the next line
+                token = line.replace("\n","")
+                logger.debug(f'token:{token}')
+            if ("# Data") in line:
+                # get the skill data
+                lines = f.readlines()  # get the rest lines of the file
+                logger.debug(f'lines:{lines}')
+            line = f.readline()
+    skillDataString = ''.join((str(x) for x in lines))
+    logger.debug(f'skillDataString:{skillDataString}')
+    skillDataString = ''.join(skillDataString.split()).split('{')[1].split('}')[0].split(',')
+    logger.debug(f'skillDataString:{skillDataString}')
+    if skillDataString[-1] == '':
+        skillDataString = skillDataString[:-1]
+    cmdList = list(map(int, skillDataString))
+    logger.debug(f'cmdList:{cmdList}')
+
+    send(goodPorts, [token, cmdList, delayTime])
+
 
 # send a command string
 def sendCmdStr(cmdStr, delayTime):

@@ -150,7 +150,7 @@ namespace robot{
     }
 
 
-    //% block="Perform the skill exported from Skill Composer and delay [TIME] seconds" blockType="command"
+    //% block="Perform the last skill exported from Skill Composer and delay [TIME] seconds" blockType="command"
     //% TIME.shadow="number" TIME.defl=0.2
     export function callLastSkill(parameter: any, block: any) {
         var t=parameter.TIME.code;
@@ -158,6 +158,17 @@ namespace robot{
         Generator.addCode(`sendCmdStr('T', ${t})`);
     } 
 	
+
+    //% block="Perform the skill in the file [FILENAME] and delay [TIME] seconds" blockType="command"
+    //% FILENAME.shadow="string" FILENAME.defl="sayHi"
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function callExpSkill(parameter: any, block: any) {
+        let fileName=parameter.FILENAME.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`loadSkill(${fileName}, ${t})`);
+    } 
+    
 
     //% block="Turn sequentially [LIST] and delay [TIME] seconds" blockType="command"
     //% LIST.shadow="normal"
