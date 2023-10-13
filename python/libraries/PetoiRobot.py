@@ -26,7 +26,7 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("Mind+ date: ", "Jun 6, 2023")
+printH("Mind+ date: ", "Oct 13, 2023")
 
 '''
 def getPortList():
@@ -188,6 +188,7 @@ def openPort(port):
 def autoConnect():
     connectPort(goodPorts)
     logger.debug(f'goodPorts: {goodPorts}')
+    deacGyro()
 
 '''
 # check if there is a response

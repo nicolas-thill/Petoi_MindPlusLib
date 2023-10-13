@@ -2,7 +2,11 @@
     "ARPIN": {
         "menu": [["NyBoard A2", "16"],
         ["NyBoard A3", "17"],
-        ["NyBoard Battery", "7"]],
+        ["NyBoard Battery", "7"],
+        ["BiBoard 34", "34"],
+        ["BiBoard 35", "35"],
+        ["BiBoard 36", "36"],
+        ["BiBoard 39", "39"]],
         "default_readAnalogValue_ARPIN":"16"
     },
 
@@ -14,6 +18,35 @@
         ["NyBoard Buzzer", "5"],
         ["BiBoard Buzzer", "25"]],
         "default_writeAnalogValue_AWPIN":"6"
+    },
+
+    "DRPIN": {
+        "menu": [["NyBoard D6", "6"],
+        ["NyBoard D7", "7"],
+        ["NyBoard D8", "8"],
+        ["NyBoard D9", "9"],
+        ["NyBoard A2", "16"],
+        ["NyBoard A3", "17"],
+        ["BiBoard 34", "34"],
+        ["BiBoard 35", "35"],
+        ["BiBoard 36", "36"],
+        ["BiBoard 39", "39"]],
+        "default_readDigitalValue_DRPIN":"6"
+    },
+    
+    "DWPIN": {
+        "menu": [["NyBoard V1_2 LED", "3"],
+        ["NyBoard Buzzer", "5"],
+        ["NyBoard D6", "6"],
+        ["NyBoard D7", "7"],
+        ["NyBoard D8", "8"],
+        ["NyBoard D9", "9"],
+        ["NyBoard V1_1 LED", "10"],
+        ["NyBoard A2", "16"],
+        ["NyBoard A3", "17"],
+        ["BiBoard 16", "16"],
+        ["BiBoard 17", "17"]],
+        "default_writeDigitalValue_DWPIN":"3"
     },
 
     "DVAL": {

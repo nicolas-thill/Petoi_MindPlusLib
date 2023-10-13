@@ -5,54 +5,6 @@ enum DIRECTION {
     "-1",
 }
 
-enum DRPIN {
-    //% block="NyBoard D6"
-    6,
-    //% block="NyBoard D7"
-    7,
-    //% block="NyBoard D8"
-    8,
-    //% block="NyBoard D9"
-    9,
-    //% block="NyBoard A2"
-    16,
-    //% block="NyBoard A3"
-    17,
-    //% block="BiBoard 34"
-    34,
-    //% block="BiBoard 35"
-    35,
-    //% block="BiBoard 36"
-    36,
-    //% block="BiBoard 39"
-    39,
-}
-
-enum DWPIN {
-    //% block="NyBoard V1_2 LED"
-    3,
-    //% block="NyBoard Buzzer"
-    5,
-    //% block="NyBoard D6"
-    6,
-    //% block="NyBoard D7"
-    7,
-    //% block="NyBoard D8"
-    8,
-    //% block="NyBoard D9"
-    9,
-    //% block="NyBoard V1_1 LED"
-    10,
-    //% block="NyBoard A2"
-    16,
-    //% block="NyBoard A3"
-    17,
-    //% block="BiBoard 16"
-    16,
-    //% block="BiBoard 17"
-    17,
-}
-
 enum NOTE {
     //% block="C1"
     10,

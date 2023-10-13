@@ -77,6 +77,7 @@
     "robot.ARPIN.NyBoard Battery|menu": "NyBoard 电池",
     "robot.AWPIN.NyBoard Buzzer|menu": "NyBoard 蜂鸣器",
     "robot.AWPIN.BiBoard Buzzer|menu": "BiBoard 蜂鸣器",
+    "robot.DWPIN.NyBoard Buzzer|menu": "NyBoard 蜂鸣器",
 
     "robot.DVAL.LOW|menu": "低",
     "robot.DVAL.HIGH|menu": "高"
