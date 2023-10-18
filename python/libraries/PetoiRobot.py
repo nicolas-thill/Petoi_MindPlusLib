@@ -21,12 +21,82 @@ else:  # for Linux & macOS
     configDir = home 
 configDir = configDir + seperation +'.config' + seperation +'Petoi'
 
+
 # use to print debug information
 def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("Mind+ date: ", "Oct 13, 2023")
+printH("Mind+ date: ", "Oct 18, 2023")
+
+
+def makeDirectory(path):
+    # delete spaces in the path string
+    path = path.strip()
+    # delete the '\' at the end of path string
+    path = path.rstrip("\\").rstrip("/")
+    # path = path.rstrip("/")
+	
+    # check whether the path exists
+    isExists = os.path.exists(path)
+    
+    if not isExists:
+        # Create the directory if it does not exist
+        os.makedirs(path)
+        print(path + ' creat successfully')
+        return True
+    else:
+        # If the directory exists, it will not be created and prompt that the directory already exists.
+        print(path + ' already exists')
+        return False
+
+makeDirectory(configDir)
+
+BittleData = '# Token\n\
+K\n\
+\n\
+# Data\n\
+{\n\
+  -5,  0,   0, 1,\n\
+   1,  2,   3,\n\
+   0,-20, -60,   0,   0,   0,   0,   0,  35,  30, 120, 105,  75,  60, -40, -30,     4, 2, 0, 0,\n\
+  35, -5, -60,   0,   0,   0,   0,   0, -75,  30, 125,  95,  40,  75, -45, -30,    10, 0, 0, 0,\n\
+  40,  0, -35,   0,   0,   0,   0,   0, -60,  30, 125,  95,  60,  75, -45, -30,    10, 0, 0, 0,\n\
+   0,  0, -45,   0,  -5,  -5,  20,  20,  45,  45, 105, 105,  45,  45, -45, -45,     8, 0, 0, 0,\n\
+   0,  0,   0,   0,   0,   0,   0,   0,  30,  30,  30,  30,  30,  30,  30,  30,     5, 0, 0, 0,\n\
+};'
+
+NybbleData = '# Token\n\
+K\n\
+\n\
+# Data\n\
+{\n\
+  -5,   0,   0,   1,\n\
+   2,   3,   3,\n\
+   0, -20, -65,   0,   0,   0,   0,   0,  30,  30, -90, -90,  60,  60,  45,  45,   8,   1,   0,   0,\n\
+   0, -20, -65,   0,   0,   0,   0,   0,  30,  41, -90, -72,  60,  46,  45,   5,   8,   2,   0,   0,\n\
+  35, -15, -65,   0,  -3,  -3,   3,   3, -75,  41, -85, -72,  40,  65,  60,   0,   8,   0,   0,   0,\n\
+  40, -10, -55,   0,  -3,  -3,   3,   3, -60,  41, -80, -79,  60,  65,  60,   0,   4,   0,   0,   0,\n\
+   0,   0,   0,   0,   0,   0,   0,   0,  30,  41, -30, -30,  30,  30, -30, -30,  12,   0,   0,   0,\n\
+};'
+
+modelDict = {'Bittle': BittleData, 'Nybble': NybbleData}
+
+def creatSkillFile():
+    for key in modelDict:
+        modelDir = configDir + seperation + 'SkillLibrary' + seperation + key
+        makeDirectory(modelDir)
+        filePath = modelDir + seperation + 'skillFileName.md'
+        if not os.path.exists(filePath):
+            try:
+                with open(filePath, 'w+', encoding="utf-8") as f:
+                    f.write(modelDict[key])
+                    time.sleep(0.1)
+            except Exception as e:
+                return False, 'save failed:{}'.format(e)
+
+creatSkillFile()
+
 
 '''
 def getPortList():
@@ -239,11 +309,11 @@ def sendSkillStr(skillStr, delayTime):
     send(goodPorts, [skillStr,delayTime])
 
 # perform a skill exported from the Skill Composer
-# the file directory is: "/$HOME/.config/Petoi/xxx.md" for Linux and macOS
-# the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\xxx.md" for Windows
+# the file directory is: "/$HOME/.config/Petoi/SkillLibrary/{model}/xxx.md" for Linux and macOS
+# the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\SkillLibrary\{model}\xxx.md" for Windows
 def loadSkill(fileName, delayTime):
     # get the path of the exported skill file
-    skillFilePath = configDir + seperation + fileName +'.md'
+    skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName +'.md'
     logger.debug(f'skillFilePath:{skillFilePath}')
 
     # open the skill file

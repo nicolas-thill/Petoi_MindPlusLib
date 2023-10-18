@@ -44,8 +44,8 @@
         ["NyBoard V1_1 LED", "10"],
         ["NyBoard A2", "16"],
         ["NyBoard A3", "17"],
-        ["BiBoard 16", "16"],
-        ["BiBoard 17", "17"]],
+        ["BiBoard Rx", "16."],
+        ["BiBoard Tx", "17."]],
         "default_writeDigitalValue_DWPIN":"3"
     },
 

@@ -112,12 +112,18 @@ namespace robot{
 	
 
     //% block="Perform the skill in the file [FILENAME] and delay [TIME] seconds" blockType="command"
-    //% FILENAME.shadow="string" FILENAME.defl="sayHi"
+    //% FILENAME.shadow="string" FILENAME.defl="skillFileName"
     //% TIME.shadow="number" TIME.defl=0.2
     export function callExpSkill(parameter: any, block: any) {
         let fileName=parameter.FILENAME.code;
         var t=parameter.TIME.code;
 
+        Generator.addCode(`# This block calls the skill stored in:`)
+        Generator.addCode(`# Windows: C:\\Users\\{your user name}\\.config\\Petoi\\SkillLibrary\\{model}`)
+        Generator.addCode(`# MacOS: /Users/{your user name}/.config/Petoi/SkillLibrary/{model}`)
+        Generator.addCode(`# Linux: /home/{your user name}/.config/Petoi/SkillLibrary/{model}`)
+        Generator.addCode(`# The model is Bittle or Nybble`)
+        Generator.addCode(`# Please enter the skill filename in the block`)
         Generator.addCode(`loadSkill(${fileName}, ${t})`);
     } 
     
