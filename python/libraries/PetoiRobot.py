@@ -52,6 +52,17 @@ def makeDirectory(path):
 
 makeDirectory(configDir)
 
+def file_name(file_dir):
+    # printH("file_dir:",file_dir)
+    File_Name=[]
+    for files in os.listdir(file_dir):
+        # printH("files:",files)
+        if os.path.splitext(files)[1] == '.md':
+            File_Name.append(files.split('.')[0])
+            # printH("File_Name:",files.split('.')[0])
+    return File_Name
+
+
 BittleData = '# Token\n\
 K\n\
 \n\
@@ -239,6 +250,13 @@ def encode(in_str, encoding='utf-8'):
     else:
         return in_str.encode(encoding)
 
+def printSkillFileName():
+    skillDir = configDir + seperation + 'SkillLibrary' + seperation + config.model_
+    skill_file_name=file_name(skillDir)
+    print("*** The skill names you can call are as follows: ***")
+    for skillName in skill_file_name:
+        printH("* ",skillName)
+    print("******************************")
 
 # open the serial port 
 def openPort(port):
@@ -252,13 +270,16 @@ def openPort(port):
     t = 3
     print('Time delay after open port: ', str(t))
     time.sleep(t)
+    printSkillFileName()
 
 
 # auto connect serial ports
 def autoConnect():
     connectPort(goodPorts)
     logger.debug(f'goodPorts: {goodPorts}')
+    printSkillFileName()
     deacGyro()
+    
 
 '''
 # check if there is a response
