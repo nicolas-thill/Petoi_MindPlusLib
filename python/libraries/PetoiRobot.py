@@ -334,7 +334,11 @@ def sendSkillStr(skillStr, delayTime):
 # the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\SkillLibrary\{model}\xxx.md" for Windows
 def loadSkill(fileName, delayTime):
     # get the path of the exported skill file
-    skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName +'.md'
+    if ".md" in fileName:
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName
+    else:
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName +'.md'
+
     logger.debug(f'skillFilePath:{skillFilePath}')
 
     # open the skill file
