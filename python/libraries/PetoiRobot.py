@@ -405,11 +405,8 @@ def sendLongCmd(token, var, delayTime):
     send(goodPorts,[token, var, delayTime])
 
 
-# get analog value of a pin
-def readAnalogValue(pin):
-    token = 'R'
-    task = [token, [97, pin], 0]
-
+# get value from a request
+def getValue(task, dataType ="int"):
     rawData = send(goodPorts, task)
     if rawData!=-1:
         logger.debug(f'rawData={rawData}')
@@ -419,10 +416,13 @@ def readAnalogValue(pin):
         if "=" in result:
             index = result.find("=") + 1
             try:
-                value = int(result[index:])
+                if dataType == "float":
+                    value = float(result[index:])
+                else:
+                    value = int(result[index:])
                 # printH("value is: ",value)
             except Exception as e:
-                print('* No analog value got!')
+                print('* No value got!')
                 raise e
         else:
             value = -1
@@ -431,6 +431,13 @@ def readAnalogValue(pin):
         return -1
 
 
+# get analog value of a pin
+def readAnalogValue(pin):
+    token = 'R'
+    task = [token, [97, pin], 0]
+    return getValue(task)
+    
+
 # get digital value of a pin
 def readDigitalValue(pin):
     token = 'R'
@@ -438,22 +445,14 @@ def readDigitalValue(pin):
 
     # p = getPortList()
     # rawData = sendTask(goodPorts, p[0], task)
-    rawData = send(goodPorts, task)
-    if rawData!=-1:
-        logger.debug(f'rawData={rawData}')
-        # result = rawData[1][:-2]
-        result = rawData[1].replace('\r','').replace('\n','')    # delete '\r\n'
-        # printH("result is: ",result)
-        if  "=" in result:
-            try:
-                value = int(result[1:])
-                # printH("value is: ",value)
-                return value
-            except Exception as e:
-                print('* No digital value got!')
-                raise e
-    else:
-        return -1
+    return getValue(task)
+
+
+# get distance value(cm) from ultrasonic sensor
+def readUltrasonicDistance(triggerPin, echoPin):
+    token = 'XU'
+    task = [token, [triggerPin, echoPin], 0]
+    return getValue(task, dataType ="float")
 
 
 # set analog value of a pin

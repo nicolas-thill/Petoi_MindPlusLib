@@ -298,7 +298,18 @@ namespace robot{
 	}
 
 
-	//% block="Close serial port and quit" blockType="command"
+    //% block="Ultrasonic sensor distance(cm): Trigger [TRPIN] Echo [ECPIN]" blockType="reporter"
+    //% TRPIN.shadow="dropdown"  TRPIN.options="TRPIN"  TRPIN.defl="TRPIN.6"
+    //% ECPIN.shadow="dropdown"  ECPIN.options="ECPIN"  ECPIN.defl="ECPIN.-1"
+    export function readUltrasonicDistance(parameter: any, block: any) {
+        var trigPin = parameter.TRPIN.code;
+        var echoPin = parameter.ECPIN.code;
+              
+        Generator.addCode(`readUltrasonicDistance(${trigPin}, ${echoPin})`);
+    }
+
+    
+    //% block="Close serial port and quit" blockType="command"
     export function closeSerialPort(parameter: any, block: any) {
     
         Generator.addCode(`closePort()`);

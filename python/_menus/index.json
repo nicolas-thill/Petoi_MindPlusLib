@@ -33,6 +33,27 @@
         ["BiBoard 39", "39"]],
         "default_readDigitalValue_DRPIN":"6"
     },
+
+    "TRPIN": {
+        "menu": [["NyBoard D6", "6"],
+        ["NyBoard D7", "7"],
+        ["NyBoard D8", "8"],
+        ["NyBoard D9", "9"],
+        ["BiBoard Rx2", "16"],
+        ["BiBoard Tx2", "17"]],
+        "default_readUltrasonicDistance_TRPIN":"6"
+    },
+
+    "ECPIN": {
+        "menu": [["same as Trigger", "-1"],
+        ["NyBoard D6", "6"],
+        ["NyBoard D7", "7"],
+        ["NyBoard D8", "8"],
+        ["NyBoard D9", "9"],
+        ["BiBoard Rx2", "16"],
+        ["BiBoard Tx2", "17"]],
+        "default_readUltrasonicDistance_ECPIN":"-1"
+    },
     
     "DWPIN": {
         "menu": [["NyBoard V1_2 LED", "3"],

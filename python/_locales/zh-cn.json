@@ -21,6 +21,7 @@
     "robot.readDigitalValue|block": "读数字脚[DRPIN]",
     "robot.writeAnalogValue|block": "写模拟值[AVAL]到引脚[AWPIN]",
     "robot.writeDigitalValue|block": "写数字值[DVAL]到引脚[DWPIN]",
+    "robot.readUltrasonicDistance|block": "超声波传感器距离(cm): Trigger [TRPIN] Echo [ECPIN]",
     "robot.closeSerialPort|block": "关闭串口并退出",
 
     "robot.SKILL.sit|menu": "坐下",
@@ -80,5 +81,7 @@
     "robot.DWPIN.NyBoard Buzzer|menu": "NyBoard 蜂鸣器",
 
     "robot.DVAL.LOW|menu": "低",
-    "robot.DVAL.HIGH|menu": "高"
+    "robot.DVAL.HIGH|menu": "高",
+
+    "robot.ECPIN.same as Trigger|menu": "与Trigger相同"
 }
