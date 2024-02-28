@@ -11,14 +11,7 @@ import copy
 import threading
 import os
 import config
-
-if not config.useMindPlus:
-    import tkinter as tk
-    sys.path.append("../pyUI")
-    from translate import *
-    language = languageList['English']
-    def txt(key):
-        return language.get(key, textEN[key])
+import glob
 
 FORMAT = '%(asctime)-15s %(name)s - %(levelname)s - %(message)s'
 '''
@@ -41,7 +34,24 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("ardSerial date: ", "Jun 5, 2023")
+
+if not config.useMindPlus:
+    import tkinter as tk
+    import tkinter.messagebox
+    sys.path.append("../pyUI")
+    from translate import *
+    language = languageList['English']
+
+    def txt(key):
+        global language
+        logger.debug(f"config.strLan is: {config.strLan}.")
+        language = languageList[config.strLan]
+        return language.get(key, textEN[key])
+
+    # printH("txt('lan'):", txt('lan'))
+
+
+printH("ardSerial date: ", "Feb 2, 2024")
 
 def encode(in_str, encoding='utf-8'):
     if isinstance(in_str, bytes):
@@ -424,6 +434,7 @@ postureTableDoF16 = {
 postureDict = {
     'Nybble': postureTableNybble,
     'Bittle': postureTableBittle,
+    'Bittle X': postureTableBittle,
     'DoF16': postureTableDoF16
 }
 model = 'Bittle'
@@ -508,6 +519,8 @@ def deleteDuplicatedUsbSerial(list):
             for name in list:
                 if serialNumber in name and 'wch' in name:    # remove the "wch" device
                     list.remove(name)
+        elif 'cu.SLAB_USBtoUART' in item:
+            list.remove(item)
     return list
     
 def testPort(PortList, serialObject, p):
@@ -525,12 +538,11 @@ def testPort(PortList, serialObject, p):
                 waitTime = 3
             else:
                 waitTime = 2
-            result = sendTask(PortList, serialObject, ['b', [20, 50], 0], waitTime)
+            result = sendTask(PortList, serialObject, ['?', 0], waitTime)
             if result != -1:
                 logger.debug(f"Adding in testPort: {p}")
                 PortList.update({serialObject: p})
                 goodPortCount += 1
-                result = sendTask(PortList, serialObject, ['?', 0], waitTime)
                 getModelAndVersion(result)
             else:
                 serialObject.Close_Engine()
@@ -612,14 +624,19 @@ def keepCheckingPort(portList, cond1=None, check=True, updateFunc = lambda:None)
         allPorts = copy.deepcopy(currentPorts)
 
 def showSerialPorts(allPorts):
-    if platform.system() == 'Linux':
-        file = open("/etc/os-release", 'r')
-        line = file.readline()
-        # print("Line:" + line)
-        file.close()
-        target = "Raspbian"
-        if target in line:
-            allPorts.append('/dev/ttyS0')
+    # currently an issue in pyserial where for newer raspiberry pi os
+    # (Kernel version: 6.1, Debian version: 12 (bookworm)) or ubuntus (22.04)
+    # it classifies the /dev/ttyS0 port as a platform port and therefore won't be queried
+    # https://github.com/pyserial/pyserial/issues/489
+    if os.name == 'posix' and sys.platform.lower()[:5] == 'linux':
+        extra_ports = glob.glob('/dev/ttyS*')
+        for port in extra_ports:
+            if port not in allPorts:
+                allPorts.append(port)
+        for item in allPorts:
+            if 'AMA0' in item:
+                allPorts.remove(item)
+        
     allPorts = deleteDuplicatedUsbSerial(allPorts)
     for index in range(len(allPorts)):
         logger.debug(f"port[{index}] is {allPorts[index]} ")
@@ -687,7 +704,7 @@ def replug(PortList, needSendTask=True):
     labelC['text'] = txt('Replug prompt')
     labelC.grid(row=0, column=0)
     buttonC = tk.Button(window, text=txt('Confirm'), command=bCallback)
-    buttonC.grid(row=1, column=0)
+    buttonC.grid(row=1, column=0, pady=10)
     labelT = tk.Label(window, font='sans 14 bold')
     label = tk.Label(window, font='sans 14 bold')
     def countdown(start,ap):
@@ -747,6 +764,7 @@ def replug(PortList, needSendTask=True):
             label['text'] = "{} s".format((thres - round(time.time() - start) // 1))
         window.after(100, lambda: countdown(start, ap))
 
+    window.focus_force()  # new window gets focus
     window.mainloop()
     
 def selectList(PortList,ls,win, needSendTask=True):
