@@ -124,7 +124,7 @@ def deacGyro():
     res = send(goodPorts, ['G', 0])
     # printH("gyro status:",res )
     logger.debug(f'gyro status:{res}')
-    if res != -1 and res[0] == 'G':
+    if res != -1 and res[0][0] == 'G':
         res = send(goodPorts, ['G', 0])
         # printH("gyro status:",res )
         logger.debug(f'gyro status:{res}')
