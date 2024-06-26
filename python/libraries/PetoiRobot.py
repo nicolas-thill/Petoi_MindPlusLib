@@ -207,7 +207,7 @@ def relativeValList(index, symbol, angle):
 
 # rotate the joints sequentially or simultaneously
 def rotateJoints(token, var, delayTime):
-    currentAngleList = getAngleList()
+    # currentAngleList = getAngleList()
     newList = []
 
     for iA in var:
@@ -215,11 +215,13 @@ def rotateJoints(token, var, delayTime):
             newList += [iA]
         elif isinstance(iA, tuple):
             if len(iA)==2:
-                currentAngleList[iA[0]] = iA[1]
+                newList += [iA[0], iA[1]]
+                # currentAngleList[iA[0]] = iA[1]
             elif len(iA)==3:
+                currentAngleList = getAngleList()
                 currentAngleList[iA[0]] += iA[1]*iA[2]
                 currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
-            newList += [iA[0], currentAngleList[iA[0]]]
+                newList += [iA[0], currentAngleList[iA[0]]]
     sendLongCmd(token, newList, delayTime)
 
 
