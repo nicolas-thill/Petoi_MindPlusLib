@@ -32,7 +32,9 @@
         ["BiBoard 34", "34"],
         ["BiBoard 35", "35"],
         ["BiBoard 36", "36"],
-        ["BiBoard 39", "39"]],
+        ["BiBoard 39", "39"],
+        ["BiBoard Rx2", "16."],
+        ["BiBoard Tx2", "17."]],
         "default_readDigitalValue_DRPIN":"6"
     },
 

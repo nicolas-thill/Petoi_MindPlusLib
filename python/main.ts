@@ -265,7 +265,14 @@ namespace robot{
         var pin=parameter.AWPIN.code;
         var val=parameter.AVAL.code;
 
-		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+		if (pin == "16" || pin == "17")
+        {
+            Generator.addCode(`writeAnalogValue(${pin}, ${val})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+        }
 	}
 
 
@@ -285,7 +292,14 @@ namespace robot{
         var pin=parameter.DWPIN.code;
         var val=parameter.DVAL.code;
 
-		Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
+		if (pin == "16." || pin == "17.")
+        {
+            Generator.addCode(`writeDigitalValue(${pin}, ${val})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
+        }
 	}
 
 
@@ -293,8 +307,14 @@ namespace robot{
 	//% DRPIN.shadow="dropdown"  DRPIN.options="DRPIN"  DRPIN.defl="DRPIN.6"
 	export function readDigitalValue(parameter: any, block: any) {
         var pin=parameter.DRPIN.code;
-
-		Generator.addCode(`readDigitalValue(${pin})`);
+        if (pin == "16." || pin == "17.")
+        {
+            Generator.addCode(`readDigitalValue(${pin})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`readDigitalValue(${pin})`);
+        }
 	}
 
 
