@@ -16,7 +16,9 @@
         ["NyBoard D9", "9"],
         ["NyBoard V1_1 LED", "10"],
         ["NyBoard Buzzer", "5"],
-        ["BiBoard Buzzer", "25"]],
+        ["BiBoard Buzzer", "25"],
+        ["BiBoard Rx2", "16"],
+        ["BiBoard Tx2", "17"]],
         "default_writeAnalogValue_AWPIN":"6"
     },
 
@@ -66,8 +68,8 @@
         ["NyBoard A2", "16"],
         ["NyBoard A3", "17"],
         ["BiBoard Buzzer", "25"],
-        ["BiBoard Rx", "16."],
-        ["BiBoard Tx", "17."]],
+        ["BiBoard Rx2", "16."],
+        ["BiBoard Tx2", "17."]],
         "default_writeDigitalValue_DWPIN":"3"
     },
 
