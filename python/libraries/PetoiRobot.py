@@ -21,6 +21,7 @@ else:  # for Linux & macOS
     configDir = home 
 configDir = configDir + seperation +'.config' + seperation +'Petoi'
 
+modelName = 'Bittle'
 
 # use to print debug information
 def printH(head, value):
@@ -91,7 +92,22 @@ K\n\
    0,   0,   0,   0,   0,   0,   0,   0,  30,  41, -30, -30,  30,  30, -30, -30,  12,   0,   0,   0,\n\
 };'
 
-modelDict = {'Bittle': BittleData, 'Nybble': NybbleData}
+BittleRData = '# Token\n\
+K\n\
+\n\
+# Data\n\
+{\n\
+  -6, 0, 0, 1,\n\
+   1, 2, 3,\n\
+   0, -20,   0,   0,   0,   0,   0,   0,  35,  30, 120, 105,  75,  60, -40, -30,	 8, 2, 0, 0,\n\
+  -5,  -5,   0,   0,   0,   0,   0,   0, -99,  30, 125,  95,  40,  75, -45, -30,	10, 0, 0, 0,\n\
+   0,  -5,   0,   0,   0,   0,   0,   0, -90,  30, 125,  95,  62,  75, -45, -30,	10, 0, 0, 0,\n\
+ -15,  -5,   0,   0,   0,   0,   0,   0, -90,  30, 125,  95,  62,  75, -45, -30,	 8, 0, 0, 0,\n\
+   0,  -5,   0,   0,  -5,  -5,  20,  20,  45,  45, 105, 105,  45,  45, -45, -45,	 8, 0, 0, 0,\n\
+   0,   0,   0,   0,   0,   0,   0,   0,  30,  30,  30,  30,  30,  30,  30,  30,	 8, 0, 0, 0,\n\
+};'
+
+modelDict = {'Bittle': BittleData, 'Nybble': NybbleData, 'BittleR': BittleRData}
 
 def creatSkillFile():
     for key in modelDict:
@@ -253,7 +269,14 @@ def encode(in_str, encoding='utf-8'):
         return in_str.encode(encoding)
 
 def printSkillFileName():
-    skillDir = configDir + seperation + 'SkillLibrary' + seperation + config.model_
+    global modelName
+    config.model_ = config.model_.replace(' ','')
+    if 'Bittle' in config.model_ and config.model_!= 'BittleR':
+        modelName = 'Bittle'
+    else:
+        modelName = config.model_
+    printH("modelName:", modelName)
+    skillDir = configDir + seperation + 'SkillLibrary' + seperation + modelName
     skill_file_name=file_name(skillDir)
     print("*** The skill names you can call are as follows: ***")
     for skillName in skill_file_name:
@@ -335,11 +358,12 @@ def sendSkillStr(skillStr, delayTime):
 # the file directory is: "/$HOME/.config/Petoi/SkillLibrary/{model}/xxx.md" for Linux and macOS
 # the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\SkillLibrary\{model}\xxx.md" for Windows
 def loadSkill(fileName, delayTime):
+    global modelName
     # get the path of the exported skill file
     if ".md" in fileName:
-        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + modelName + seperation + fileName
     else:
-        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName +'.md'
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + modelName + seperation + fileName +'.md'
 
     logger.debug(f'skillFilePath:{skillFilePath}')
 
