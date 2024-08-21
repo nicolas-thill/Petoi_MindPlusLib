@@ -292,7 +292,7 @@ def openPort(port):
         port = '/dev/' + port
     serialObject = Communication(port, 115200, 1)
     testPort(goodPorts, serialObject, port.split('/')[-1])
-    t = 3
+    t = 1
     print('Time delay after open port: ', str(t))
     time.sleep(t)
     printSkillFileName()
