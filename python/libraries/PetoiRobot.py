@@ -195,7 +195,7 @@ def getCurAng(index):
 
 # creat an absolut value list
 def absValList(num1, num2):
-    return [(num1, num2)]
+    return [(int(num1), num2)]
 
 
 # rotate angle from relative value to absolute value
@@ -218,14 +218,14 @@ def relativeValList(index, symbol, angle):
     # newList.append(absAngle)
     # return newList
     # printH("type:", isinstance(symbol, str))
-    return [(index, int(symbol), angle)]
+    return [(int(index), int(symbol), angle)]
 
 
 # rotate the joints sequentially or simultaneously
 def rotateJoints(token, var, delayTime):
     # currentAngleList = getAngleList()
     newList = []
-
+    delay = delayTime
     for iA in var:
         if isinstance(iA, int):
             newList += [iA]
@@ -238,7 +238,12 @@ def rotateJoints(token, var, delayTime):
                 currentAngleList[iA[0]] += iA[1]*iA[2]
                 currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
                 newList += [iA[0], currentAngleList[iA[0]]]
-    sendLongCmd(token, newList, delayTime)
+            # printH("iA[0]:", iA[0])
+            if iA[0] == 2 and modelName == 'BittleR':
+                delay = 0.01
+                # printH("delay:", delay)
+
+    sendLongCmd(token, newList, delay)
 
 
 # play tones

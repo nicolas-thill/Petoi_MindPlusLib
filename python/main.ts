@@ -101,6 +101,16 @@ namespace robot{
         Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
     }
 
+    //% block="Perform robot arm skill [ARMSKILL] and delay [TIME] seconds" blockType="command"
+    //% ARMSKILL.shadow="dropdown"  ARMSKILL.options="ARMSKILL"
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function executeArmSkill(parameter: any, block: any) {
+        var skill=parameter.ARMSKILL.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
+    }
+
 
     //% block="Perform the last skill exported from Skill Composer and delay [TIME] seconds" blockType="command"
     //% TIME.shadow="number" TIME.defl=0.2

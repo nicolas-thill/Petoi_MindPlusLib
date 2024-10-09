@@ -85,6 +85,8 @@
         "menu": [["Head panning", "0"],
         ["Head tilting", "1"],
         ["Tail panning", "2"],
+        ["Arm tilting", "1."],
+        ["Claw opening", "2."],
         ["LF arm", "8"],
         ["RF arm", "9"],
         ["RB arm", "10"],
@@ -138,5 +140,18 @@
         ["trotLeft", "ktrL"],
         ["trotRight", "ktrR"]],
         "default_excuteSkill_SKILL":"kup"
+    },
+
+    "ARMSKILL":{
+        "menu": [["pick up", "kpickUpL"],
+        ["put it down", "kputDownL"],
+        ["hunt", "khuntL"],
+        ["show off", "kshowOff"],
+        ["put away", "kputAwayL"],
+        ["throw away", "kthrowAwayL"],
+        ["shoot", "klaunchL"],
+        ["clap", "kclapL"],
+        ["throw out", "ktossL"]],
+        "default_excuteArmSkill_SKILL":"kpickUpL"
     }
 }
