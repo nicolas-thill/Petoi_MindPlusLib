@@ -83,10 +83,8 @@
 
     "INDEX": {
         "menu": [["Head panning", "0"],
-        ["Head tilting", "1"],
-        ["Tail panning", "2"],
-        ["Arm tilting", "1."],
-        ["Claw opening", "2."],
+        ["Head tilting(Nybble)", "1"],
+        ["Tail panning(Nybble)", "2"],
         ["LF arm", "8"],
         ["RF arm", "9"],
         ["RB arm", "10"],

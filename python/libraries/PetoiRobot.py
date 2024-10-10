@@ -225,7 +225,7 @@ def relativeValList(index, symbol, angle):
 def rotateJoints(token, var, delayTime):
     # currentAngleList = getAngleList()
     newList = []
-    delay = delayTime
+    # delay = delayTime
     for iA in var:
         if isinstance(iA, int):
             newList += [iA]
@@ -239,11 +239,11 @@ def rotateJoints(token, var, delayTime):
                 currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
                 newList += [iA[0], currentAngleList[iA[0]]]
             # printH("iA[0]:", iA[0])
-            if iA[0] == 2 and modelName == 'BittleR':
-                delay = 0.01
-                # printH("delay:", delay)
+            # if iA[0] == 2 and modelName == 'BittleR':
+            #     delay = 0.1
+            #     printH("delay:", delay)
 
-    sendLongCmd(token, newList, delay)
+    sendLongCmd(token, newList, delayTime)
 
 
 # play tones

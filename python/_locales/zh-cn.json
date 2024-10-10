@@ -75,10 +75,8 @@
     "robot.ARMSKILL.throw out|menu": "抛出去",
 
     "robot.INDEX.Head panning|menu": "头偏转角",
-    "robot.INDEX.Head tilting|menu": "头俯仰角",
-    "robot.INDEX.Tail panning|menu": "尾偏转角",
-    "robot.INDEX.Arm tilting|menu":  "机械臂倾斜角",
-    "robot.INDEX.Claw opening|menu": "机械爪张开角",
+    "robot.INDEX.Head tilting(Nybble)|menu": "头俯仰角(Nybble)",
+    "robot.INDEX.Tail panning(Nybble)|menu": "尾偏转角(Nybble)",
     "robot.INDEX.LF arm|menu": "左前臂",
     "robot.INDEX.RF arm|menu": "右前臂",
     "robot.INDEX.RB arm|menu": "右后臂",
