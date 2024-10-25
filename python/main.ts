@@ -296,7 +296,7 @@ namespace robot{
 
 
     //% block="Digital write [DVAL] to [DWPIN]" blockType="command"
-	//% DWPIN.shadow="dropdown"  DWPIN.options="DWPIN"  DWPIN.defl="DWPIN.6"
+	//% DWPIN.shadow="dropdown"  DWPIN.options="DWPIN"
     //% DVAL.shadow="dropdown"  DVAL.options="DVAL"
 	export function writeDigitalValue(parameter: any, block: any) {
         var pin=parameter.DWPIN.code;

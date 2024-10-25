@@ -72,7 +72,7 @@
         ["BiBoard Buzzer", "25"],
         ["BiBoard Rx2", "16."],
         ["BiBoard Tx2", "17."]],
-        "default_writeDigitalValue_DWPIN":"3"
+        "default_writeDigitalValue_DWPIN":"6"
     },
 
     "DVAL": {
@@ -137,19 +137,25 @@
         ["trot", "ktrF"],
         ["trotLeft", "ktrL"],
         ["trotRight", "ktrR"]],
-        "default_excuteSkill_SKILL":"kup"
+        "default_executeSkill_SKILL":"kup"
     },
 
     "ARMSKILL":{
-        "menu": [["pick up", "kpickUpL"],
-        ["put it down", "kputDownL"],
-        ["hunt", "khuntL"],
+        "menu": [["pick Down", "kpickD"],
+        ["pick Front", "kpickF"],
+        ["pick Left", "kpickL"],
+        ["pick Right", "kpickR"],
+        ["put Down", "kputD"],
+        ["put Front", "kputF"],
+        ["put Left", "kputL"],
+        ["put Right", "kputR"],
+        ["shoot", "klaunch"],
+        ["throw Front", "ktossF"],
+        ["throw Left", "ktossL"],
+        ["throw Right", "ktossR"],
+        ["hunt", "khunt"],
         ["show off", "kshowOff"],
-        ["put away", "kputAwayL"],
-        ["throw away", "kthrowAwayL"],
-        ["shoot", "klaunchL"],
-        ["clap", "kclapL"],
-        ["throw out", "ktossL"]],
-        "default_excuteArmSkill_SKILL":"kpickUpL"
+        ["clap", "kclap"]],
+        "default_executeArmSkill_ARMSKILL":"kpickF"
     }
 }

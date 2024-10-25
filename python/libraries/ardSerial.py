@@ -756,6 +756,8 @@ def replug(PortList, needSendTask=True, needOpenPort=True):
             else:
                 dif = list(set(curPorts)-set(ap))
                 dif = deleteDuplicatedUsbSerial(dif)
+                # print("diff:",end=" ")
+                # print(dif)
                 
                 success = False
                 for p in dif:
