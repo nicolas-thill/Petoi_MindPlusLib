@@ -236,7 +236,7 @@ def sendTask(PortList, port, task, timeout=0):  # task Structure is [token, var=
         #    if initialized:
         #        printH('thread',portDictionary[port])
         except Exception as e:
-            #        printH('Fail to send to port',PortList[port])
+            # printH('Fail to send to port',PortList[port])
             if port in PortList:
                 PortList.pop(port)
             lastMessage = -1
@@ -252,7 +252,7 @@ def sendTaskParallel(ports, task, timeout=0):
     #    sync = 0
     threads = list()
     for p in ports:
-        t = threading.Thread(target=sendTask, args=(goodPorts, p, task, timeout))
+        t = threading.Thread(target=sendTask, args=(goodPorts, p, task, timeout), daemon=True)
         threads.append(t)
         t.start()
     for t in threads:
@@ -338,7 +338,7 @@ def closeAllSerial(ports, clearPorts=True):
         send(ports, ['d', 0], 1)
 
     for p in ports:
-        t = threading.Thread(target=closeSerialBehavior, args=(p,))
+        t = threading.Thread(target=closeSerialBehavior, args=(p,), daemon=True)
         t.start()
         t.join()
 
@@ -581,7 +581,7 @@ def checkPortList(PortList, allPorts, needTesting=True):
         serialObject = Communication(p, 115200, 1)
         if needTesting is True:
             t = threading.Thread(target=testPort,
-                                 args=(PortList, serialObject, p.split('/')[-1]))    # remove '/dev/' in the port name
+                                 args=(PortList, serialObject, p.split('/')[-1]), daemon=True)    # remove '/dev/' in the port name
             threads.append(t)
             t.start()
         else:
@@ -592,7 +592,8 @@ def checkPortList(PortList, allPorts, needTesting=True):
     if needTesting is True:
         for t in threads:
             if t.is_alive():
-                t.join(8)
+                # print("t is alive")
+                t.join(timeout=5)
 
 
 def keepCheckingPort(portList, cond1=None, check=True, updateFunc = lambda:None):
@@ -872,7 +873,7 @@ timePassed = 0
 if __name__ == '__main__':
     try:
         connectPort(goodPorts)
-        t = threading.Thread(target=keepCheckingPort, args=(goodPorts,))
+        t = threading.Thread(target=keepCheckingPort, args=(goodPorts,), daemon=True)
         t.start()
         if len(sys.argv) >= 2:
             if len(sys.argv) == 2:
