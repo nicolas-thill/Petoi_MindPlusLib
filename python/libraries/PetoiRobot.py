@@ -28,7 +28,7 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("Mind+ date: ", "Oct 18, 2023")
+printH("Mind+ date: ", "Nov 27, 2024")
 
 
 def makeDirectory(path):
@@ -137,13 +137,20 @@ def getPortList():
 
 # deactivate the gyro
 def deacGyro():
-    res = send(goodPorts, ['G', 0])
-    # printH("gyro status:",res )
-    logger.debug(f'gyro status:{res}')
-    if res != -1 and res[0][0] == 'G':
+    boardVer = config.version_
+    # printH("boardVer:", boardVer)
+    if boardVer[0] == 'N':
         res = send(goodPorts, ['G', 0])
         # printH("gyro status:",res )
         logger.debug(f'gyro status:{res}')
+        if res != -1 and res[0][0] == 'G':
+            res = send(goodPorts, ['G', 0])
+            # printH("gyro status:",res )
+            logger.debug(f'gyro status:{res}')
+    else:
+        res = send(goodPorts, ['gb', 0])
+        if res != -1 and res[0][0] == 'g':
+            logger.debug(f'gyro is deactived successfully.')
 
 
 # get the current angle list of all joints
@@ -301,6 +308,7 @@ def openPort(port):
     print('Time delay after open port: ', str(t))
     time.sleep(t)
     printSkillFileName()
+    deacGyro()
 
 
 # auto connect serial ports

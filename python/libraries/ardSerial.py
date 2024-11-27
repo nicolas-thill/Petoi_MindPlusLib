@@ -51,7 +51,7 @@ if not config.useMindPlus:
     # printH("txt('lan'):", txt('lan'))
 
 
-logger.info("ardSerial date: Jun. 20, 2024")
+logger.info("ardSerial date: Nov. 27, 2024")
 
 def encode(in_str, encoding='utf-8'):
     if isinstance(in_str, bytes):
@@ -593,7 +593,7 @@ def checkPortList(PortList, allPorts, needTesting=True):
         for t in threads:
             if t.is_alive():
                 # print("t is alive")
-                t.join(timeout=5)
+                t.join(timeout=8)
 
 
 def keepCheckingPort(portList, cond1=None, check=True, updateFunc = lambda:None):
