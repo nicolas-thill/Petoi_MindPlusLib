@@ -101,6 +101,16 @@ namespace robot{
         Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
     }
 
+    //% block="Perform robot arm skill [ARMSKILL] and delay [TIME] seconds" blockType="command"
+    //% ARMSKILL.shadow="dropdown"  ARMSKILL.options="ARMSKILL"
+    //% TIME.shadow="number" TIME.defl=0.2
+    export function executeArmSkill(parameter: any, block: any) {
+        var skill=parameter.ARMSKILL.code;
+        var t=parameter.TIME.code;
+
+        Generator.addCode(`sendSkillStr('${skill}', ${t})`); 
+    }
+
 
     //% block="Perform the last skill exported from Skill Composer and delay [TIME] seconds" blockType="command"
     //% TIME.shadow="number" TIME.defl=0.2
@@ -265,7 +275,14 @@ namespace robot{
         var pin=parameter.AWPIN.code;
         var val=parameter.AVAL.code;
 
-		Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+		if (pin == "16" || pin == "17")
+        {
+            Generator.addCode(`writeAnalogValue(${pin}, ${val})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`writeAnalogValue(${pin}, ${val})`);
+        }
 	}
 
 
@@ -279,13 +296,20 @@ namespace robot{
 
 
     //% block="Digital write [DVAL] to [DWPIN]" blockType="command"
-	//% DWPIN.shadow="dropdown"  DWPIN.options="DWPIN"  DWPIN.defl="DWPIN.6"
+	//% DWPIN.shadow="dropdown"  DWPIN.options="DWPIN"
     //% DVAL.shadow="dropdown"  DVAL.options="DVAL"
 	export function writeDigitalValue(parameter: any, block: any) {
         var pin=parameter.DWPIN.code;
         var val=parameter.DVAL.code;
 
-		Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
+		if (pin == "16." || pin == "17.")
+        {
+            Generator.addCode(`writeDigitalValue(${pin}, ${val})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`writeDigitalValue(${pin}, ${val})`);
+        }
 	}
 
 
@@ -293,8 +317,14 @@ namespace robot{
 	//% DRPIN.shadow="dropdown"  DRPIN.options="DRPIN"  DRPIN.defl="DRPIN.6"
 	export function readDigitalValue(parameter: any, block: any) {
         var pin=parameter.DRPIN.code;
-
-		Generator.addCode(`readDigitalValue(${pin})`);
+        if (pin == "16." || pin == "17.")
+        {
+            Generator.addCode(`readDigitalValue(${pin})  # pleae dial the switch on the extension hat to Uart2.`);
+        }
+        else
+        {
+            Generator.addCode(`readDigitalValue(${pin})`);
+        }
 	}
 
 

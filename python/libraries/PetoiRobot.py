@@ -21,13 +21,14 @@ else:  # for Linux & macOS
     configDir = home 
 configDir = configDir + seperation +'.config' + seperation +'Petoi'
 
+modelName = 'Bittle'
 
 # use to print debug information
 def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("Mind+ date: ", "Oct 18, 2023")
+printH("Mind+ date: ", "Nov 27, 2024")
 
 
 def makeDirectory(path):
@@ -91,7 +92,22 @@ K\n\
    0,   0,   0,   0,   0,   0,   0,   0,  30,  41, -30, -30,  30,  30, -30, -30,  12,   0,   0,   0,\n\
 };'
 
-modelDict = {'Bittle': BittleData, 'Nybble': NybbleData}
+BittleRData = '# Token\n\
+K\n\
+\n\
+# Data\n\
+{\n\
+  -6, 0, 0, 1,\n\
+   1, 2, 3,\n\
+   0, -20,   0,   0,   0,   0,   0,   0,  35,  30, 120, 105,  75,  60, -40, -30,	 8, 2, 0, 0,\n\
+  -5,  -5,   0,   0,   0,   0,   0,   0, -99,  30, 125,  95,  40,  75, -45, -30,	10, 0, 0, 0,\n\
+   0,  -5,   0,   0,   0,   0,   0,   0, -90,  30, 125,  95,  62,  75, -45, -30,	10, 0, 0, 0,\n\
+ -15,  -5,   0,   0,   0,   0,   0,   0, -90,  30, 125,  95,  62,  75, -45, -30,	 8, 0, 0, 0,\n\
+   0,  -5,   0,   0,  -5,  -5,  20,  20,  45,  45, 105, 105,  45,  45, -45, -45,	 8, 0, 0, 0,\n\
+   0,   0,   0,   0,   0,   0,   0,   0,  30,  30,  30,  30,  30,  30,  30,  30,	 8, 0, 0, 0,\n\
+};'
+
+modelDict = {'Bittle': BittleData, 'Nybble': NybbleData, 'BittleR': BittleRData}
 
 def creatSkillFile():
     for key in modelDict:
@@ -121,13 +137,20 @@ def getPortList():
 
 # deactivate the gyro
 def deacGyro():
-    res = send(goodPorts, ['G', 0])
-    # printH("gyro status:",res )
-    logger.debug(f'gyro status:{res}')
-    if res != -1 and res[0][0] == 'G':
+    boardVer = config.version_
+    # printH("boardVer:", boardVer)
+    if boardVer[0] == 'N':
         res = send(goodPorts, ['G', 0])
         # printH("gyro status:",res )
         logger.debug(f'gyro status:{res}')
+        if res != -1 and res[0][0] == 'G':
+            res = send(goodPorts, ['G', 0])
+            # printH("gyro status:",res )
+            logger.debug(f'gyro status:{res}')
+    else:
+        res = send(goodPorts, ['gb', 0])
+        if res != -1 and res[0][0] == 'g':
+            logger.debug(f'gyro is deactived successfully.')
 
 
 # get the current angle list of all joints
@@ -179,7 +202,7 @@ def getCurAng(index):
 
 # creat an absolut value list
 def absValList(num1, num2):
-    return [(num1, num2)]
+    return [(int(num1), num2)]
 
 
 # rotate angle from relative value to absolute value
@@ -202,24 +225,31 @@ def relativeValList(index, symbol, angle):
     # newList.append(absAngle)
     # return newList
     # printH("type:", isinstance(symbol, str))
-    return [(index, int(symbol), angle)]
+    return [(int(index), int(symbol), angle)]
 
 
 # rotate the joints sequentially or simultaneously
 def rotateJoints(token, var, delayTime):
-    currentAngleList = getAngleList()
+    # currentAngleList = getAngleList()
     newList = []
-
+    # delay = delayTime
     for iA in var:
         if isinstance(iA, int):
             newList += [iA]
         elif isinstance(iA, tuple):
             if len(iA)==2:
-                currentAngleList[iA[0]] = iA[1]
+                newList += [iA[0], iA[1]]
+                # currentAngleList[iA[0]] = iA[1]
             elif len(iA)==3:
+                currentAngleList = getAngleList()
                 currentAngleList[iA[0]] += iA[1]*iA[2]
                 currentAngleList[iA[0]] = min(125,max(-125,currentAngleList[iA[0]]))
-            newList += [iA[0], currentAngleList[iA[0]]]
+                newList += [iA[0], currentAngleList[iA[0]]]
+            # printH("iA[0]:", iA[0])
+            # if iA[0] == 2 and modelName == 'BittleR':
+            #     delay = 0.1
+            #     printH("delay:", delay)
+
     sendLongCmd(token, newList, delayTime)
 
 
@@ -251,7 +281,14 @@ def encode(in_str, encoding='utf-8'):
         return in_str.encode(encoding)
 
 def printSkillFileName():
-    skillDir = configDir + seperation + 'SkillLibrary' + seperation + config.model_
+    global modelName
+    config.model_ = config.model_.replace(' ','')
+    if 'Bittle' in config.model_ and config.model_!= 'BittleR':
+        modelName = 'Bittle'
+    else:
+        modelName = config.model_
+    printH("modelName:", modelName)
+    skillDir = configDir + seperation + 'SkillLibrary' + seperation + modelName
     skill_file_name=file_name(skillDir)
     print("*** The skill names you can call are as follows: ***")
     for skillName in skill_file_name:
@@ -267,10 +304,11 @@ def openPort(port):
         port = '/dev/' + port
     serialObject = Communication(port, 115200, 1)
     testPort(goodPorts, serialObject, port.split('/')[-1])
-    t = 3
+    t = 1
     print('Time delay after open port: ', str(t))
     time.sleep(t)
     printSkillFileName()
+    deacGyro()
 
 
 # auto connect serial ports
@@ -333,11 +371,12 @@ def sendSkillStr(skillStr, delayTime):
 # the file directory is: "/$HOME/.config/Petoi/SkillLibrary/{model}/xxx.md" for Linux and macOS
 # the file directory is: "%HOMEDRIVE%\%HomePath%\.config\Petoi\SkillLibrary\{model}\xxx.md" for Windows
 def loadSkill(fileName, delayTime):
+    global modelName
     # get the path of the exported skill file
     if ".md" in fileName:
-        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + modelName + seperation + fileName
     else:
-        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + config.model_ + seperation + fileName +'.md'
+        skillFilePath = configDir + seperation + 'SkillLibrary' + seperation + modelName + seperation + fileName +'.md'
 
     logger.debug(f'skillFilePath:{skillFilePath}')
 
