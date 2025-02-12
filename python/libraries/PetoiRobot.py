@@ -285,6 +285,8 @@ def printSkillFileName():
     config.model_ = config.model_.replace(' ','')
     if 'Bittle' in config.model_ and config.model_!= 'BittleR':
         modelName = 'Bittle'
+    elif 'Nybble' in config.model_:
+        modelName = 'Nybble'
     else:
         modelName = config.model_
     printH("modelName:", modelName)

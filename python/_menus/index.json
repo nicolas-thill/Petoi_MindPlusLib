@@ -20,7 +20,7 @@
         ["BiBoard V0 Buzzer", "25"],
         ["BiBoard V0 Rx2", "16"],
         ["BiBoard V0 Tx2", "17"],
-        ["BiBoard V1 Rx2", "9"],
+        ["BiBoard V1 Rx2", "9."],
         ["BiBoard V1 Tx2", "10."],
         ["BiBoard V1 Buzzer", "2"],
         ["BiBoard V1 LED", "27"]],
