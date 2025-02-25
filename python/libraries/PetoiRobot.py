@@ -28,7 +28,7 @@ def printH(head, value):
     print(head, end=' ')
     print(value)
 
-printH("Mind+ date: ", "Nov 27, 2024")
+printH("Mind+ date: ", "Feb 25, 2025")
 
 
 def makeDirectory(path):
@@ -42,9 +42,23 @@ def makeDirectory(path):
     isExists = os.path.exists(path)
     
     if not isExists:
-        # Create the directory if it does not exist
-        os.makedirs(path)
-        print(path + ' creat successfully')
+        # printH("model name:", path.split(seperation)[-1])
+        if path.split(seperation)[-1] == "BittleX+Arm":
+            path = seperation.join(path.split(seperation)[:-1]) + seperation + "BittleR"
+            # printH("path:", path)
+            if not os.path.exists(path):
+                # Create the directory if it does not exist
+                path = seperation.join(path.split(seperation)[:-1]) + seperation + "BittleX+Arm"
+                os.makedirs(path)
+                print(path + ' creat successfully')
+            else:
+                # Change the directory name "BittleR" to "BittleX+Arm"
+                os.rename(path,seperation.join(path.split(seperation)[:-1]) + seperation + "BittleX+Arm")
+                # print("Rename successfully!")
+        else:
+            # Create the directory if it does not exist
+            os.makedirs(path)
+            print(path + ' creat successfully')
         return True
     else:
         # If the directory exists, it will not be created and prompt that the directory already exists.
@@ -107,7 +121,7 @@ K\n\
    0,   0,   0,   0,   0,   0,   0,   0,  30,  30,  30,  30,  30,  30,  30,  30,	 8, 0, 0, 0,\n\
 };'
 
-modelDict = {'Bittle': BittleData, 'Nybble': NybbleData, 'BittleR': BittleRData}
+modelDict = {'Bittle': BittleData, 'Nybble': NybbleData, 'BittleX+Arm': BittleRData,}  # 'BittleR': BittleRData, 
 
 def creatSkillFile():
     for key in modelDict:
@@ -283,7 +297,9 @@ def encode(in_str, encoding='utf-8'):
 def printSkillFileName():
     global modelName
     config.model_ = config.model_.replace(' ','')
-    if 'Bittle' in config.model_ and config.model_!= 'BittleR':
+    if config.model_ == "BittleR":
+        modelName = 'BittleX+Arm'
+    elif 'Bittle' in config.model_ and config.model_!= 'BittleX+Arm':
         modelName = 'Bittle'
     elif 'Nybble' in config.model_:
         modelName = 'Nybble'
