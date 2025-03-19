@@ -54,7 +54,7 @@
         ["BiBoard V0 Tx2", "17"],
         ["BiBoard V1 Rx2", "9."],
         ["BiBoard V1 Tx2", "10"]],
-        "default_readUltrasonicDistance_TRPIN":"6"
+        "default_readUltrasonicDistance_TRPIN":"9."
     },
 
     "ECPIN": {
