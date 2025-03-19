@@ -10,6 +10,8 @@ import re
 import platform
 import os
 
+intoCameraMode = False
+
 if platform.system() == "Windows":    # for Windows
     seperation = '\\'
     homeDri = os.getenv('HOMEDRIVE') 
@@ -475,17 +477,33 @@ def getValue(task, dataType ="int"):
             try:
                 if dataType == "float":
                     value = float(result[index:])
-                else:
+                elif dataType == "int":
                     value = int(result[index:])
+                elif dataType == "tuple":
+                    tmpList = result[index:].split('\t')
+                    sizeStr = tmpList[2].split(' ')
+                    width = int(sizeStr[-1])
+                    # printH("width is: ",width)
+                    height = int(tmpList[3])
+                    # printH("height is: ",height)
+                    tupWidthHeight = (width, height)
+                    if width != 0:
+                        value = tuple(map(float, tmpList[:2])) + tupWidthHeight
+                    else:
+                        value = (-255, -255, 0, 0)
+                        print('* No value got!')
                 # printH("value is: ",value)
             except Exception as e:
-                print('* No value got!')
+                print('* Got value error!')
                 raise e
         else:
-            value = -1
+            value = (-255, -255, 0, 0)
+            print('* No value got!')
         return value
     else:
-        return -1
+        value = (-255, -255, 0, 0)
+        print('* No value got!')
+        return value
 
 
 # get analog value of a pin
@@ -508,8 +526,45 @@ def readDigitalValue(pin):
 # get distance value(cm) from ultrasonic sensor
 def readUltrasonicDistance(triggerPin, echoPin):
     token = 'XU'
-    task = [token, [triggerPin, echoPin], 0]
+    task = [token, [int(triggerPin), int(echoPin)], 0]
     return getValue(task, dataType ="float")
+
+# get the coordinates of the identified target from camera module
+def readCameraCoordinate():
+    global intoCameraMode
+    # Check if the camera task isactivated.
+    if intoCameraMode == False:
+        res = send(goodPorts, ['XCr', 0])
+        if res != -1 :
+            # printH("intoCameraMode is:",intoCameraMode)
+            logger.debug(f'res={res}')
+            # p = re.compile(r'^(.*),',re.MULTILINE)
+            p = re.compile(r'^(?=.*[01])(?=.*,).+$', flags=re.MULTILINE)
+            if res[1] != '':
+                logger.debug(f'res[1]={res[1]}')
+                for one in p.findall(res[1]):
+                    val = re.sub('\t','',one)
+                val = val.replace('\r','').replace('\n','')    # delete '\r\n'
+                strFlagList = val.split(',')[:-1]
+                flagList = list(map(lambda x:int(x),strFlagList))    # flag value have to be integer
+                logger.debug(f'flagList={flagList}')
+                if flagList[9] == 1:
+                    task = ['XCp', 0]
+                    intoCameraMode = True
+                    return getValue(task, dataType ="tuple")
+                else:
+                    tup = (0,0)
+                    print("No target detected!")
+                    return tup
+            else:
+                task = ['XCp', 0]
+                intoCameraMode = True
+                return getValue(task, dataType ="tuple")
+            
+    else:
+        # printH("intoCameraMode is:",intoCameraMode)
+        task = ['XCp', 0]
+        return getValue(task, dataType ="tuple")
 
 
 # set analog value of a pin
