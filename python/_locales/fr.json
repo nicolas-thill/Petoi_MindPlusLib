@@ -23,6 +23,7 @@
     "robot.writeAnalogValue|block": "Écrire la valeur analogique [AVAL] sur le connecteur [AWPIN]",
     "robot.writeDigitalValue|block": "Écrire la valeur numérique [DVAL] sur le connecteur [DWPIN]",
     "robot.readUltrasonicDistance|block": "Distance du capteur à ultrasons (en cm) : déclencheur [TRPIN], écho [ECPIN]",
+    "robot.readCameraCoordinate|block": "Coordonnées de la cible detéctée par la caméra (x,y,largeur,hauteur)",
     "robot.closeSerialPort|block": "Fermer le port série",
 
     "robot.SKILL.sit|menu": "S'assoir",
