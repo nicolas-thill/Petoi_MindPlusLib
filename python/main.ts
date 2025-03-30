@@ -338,6 +338,12 @@ namespace robot{
         Generator.addCode(`readUltrasonicDistance(${trigPin}, ${echoPin})`);
     }
 
+
+    //% block="Coordinates of the identified target (x,y,width,height)" blockType="reporter"
+    export function readCameraCoordinate(parameter: any, block: any) {
+        Generator.addCode(`readCameraCoordinate()`);
+    }
+
     
     //% block="Close serial port and quit" blockType="command"
     export function closeSerialPort(parameter: any, block: any) {

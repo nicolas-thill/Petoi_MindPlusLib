@@ -51,7 +51,7 @@ if not config.useMindPlus:
     # printH("txt('lan'):", txt('lan'))
 
 
-logger.info("ardSerial date: Nov. 27, 2024")
+logger.info("ardSerial date: Feb. 25, 2025")
 
 def encode(in_str, encoding='utf-8'):
     if isinstance(in_str, bytes):
@@ -157,7 +157,7 @@ def serialWriteByte(port, var=None):
             var.insert(1, var[0][1:])
         var[1:] = list(map(int, var[1:]))
         in_str = token.encode() + struct.pack('b' * (len(var) - 1), *var[1:]) + '~'.encode()
-    elif token == 'w' or token == 'k' or token == 'X':
+    elif token == 'w' or token == 'k' or token == 'X' or token == 'g':
         in_str = var[0] + '\n'
     else:
         in_str = token + '\n'
@@ -252,8 +252,9 @@ def sendTaskParallel(ports, task, timeout=0):
     #    sync = 0
     threads = list()
     for p in ports:
-        t = threading.Thread(target=sendTask, args=(goodPorts, p, task, timeout), daemon=True)
+        t = threading.Thread(target=sendTask, args=(goodPorts, p, task, timeout))
         threads.append(t)
+        t.daemon = True
         t.start()
     for t in threads:
         if t.is_alive():
@@ -338,7 +339,8 @@ def closeAllSerial(ports, clearPorts=True):
         send(ports, ['d', 0], 1)
 
     for p in ports:
-        t = threading.Thread(target=closeSerialBehavior, args=(p,), daemon=True)
+        t = threading.Thread(target=closeSerialBehavior, args=(p,))
+        t.daemon = True
         t.start()
         t.join()
 
@@ -453,7 +455,7 @@ postureTableDoF16 = {
 postureDict = {
     'Nybble': postureTableNybble,
     'Bittle': postureTableBittle,
-    'BittleR': postureTableBittleR,
+    'BittleX+Arm': postureTableBittleR,
     'DoF16': postureTableDoF16
 }
 model = 'Bittle'
@@ -581,8 +583,9 @@ def checkPortList(PortList, allPorts, needTesting=True):
         serialObject = Communication(p, 115200, 1)
         if needTesting is True:
             t = threading.Thread(target=testPort,
-                                 args=(PortList, serialObject, p.split('/')[-1]), daemon=True)    # remove '/dev/' in the port name
+                                 args=(PortList, serialObject, p.split('/')[-1]))    # remove '/dev/' in the port name
             threads.append(t)
+            t.daemon = True
             t.start()
         else:
             logger.debug(f"Adding in checkPortList: {p}")
@@ -873,7 +876,8 @@ timePassed = 0
 if __name__ == '__main__':
     try:
         connectPort(goodPorts)
-        t = threading.Thread(target=keepCheckingPort, args=(goodPorts,), daemon=True)
+        t = threading.Thread(target=keepCheckingPort, args=(goodPorts,))
+        t.daemon = True
         t.start()
         if len(sys.argv) >= 2:
             if len(sys.argv) == 2:
